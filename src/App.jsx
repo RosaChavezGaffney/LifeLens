@@ -36,6 +36,11 @@ const TX = {
     yourShadowSelf:"✨ Your Shadow Self",tryAgain:"↺ Write a New Story",
     messageFrom:"A message for you:",
     readyBtn:"I'm Ready — Show Me My Data →",
+    enterCode:"Enter your access code",
+    privateBeta:"LifeLens is in private beta — enter the code to continue.",
+    enterPlaceholder:"Access code",
+    wrongCode:"Incorrect code. Please try again.",
+    enterBtn:"Enter LifeLens →",
   },
   es: {
     appTagline:"Datos reales · Decisiones reales · Tu futuro",
@@ -72,6 +77,11 @@ const TX = {
     yourShadowSelf:"✨ Tu Sombra Personal",tryAgain:"↺ Escribir Una Nueva Historia",
     messageFrom:"Un mensaje para ti:",
     readyBtn:"Estoy Listo/a — Muéstrame los Datos →",
+    enterCode:"Ingresa tu código de acceso",
+    privateBeta:"LifeLens está en versión privada — ingresa el código para continuar.",
+    enterPlaceholder:"Código de acceso",
+    wrongCode:"Código incorrecto. Por favor intenta de nuevo.",
+    enterBtn:"Entrar a LifeLens →",
   }
 };
 const tx=(lang,key)=>{
@@ -708,6 +718,39 @@ function getRiskLevel(s,lang="en"){
   if(s<55)return{label:isEs?"🟡 Riesgoso":"🟡 Risky",color:"#f59e0b",sentence:isEs?"Este camino tiene desafíos reales, pero la mayoría los supera con la preparación adecuada.":"This path has real challenges, but most people navigate them successfully with the right preparation."};
   if(s<70)return{label:isEs?"🟠 Muy Riesgoso":"🟠 Seriously Risky",color:"#f97316",sentence:isEs?"Los desafíos serios afectan a la mayoría. Ir preparado marca una gran diferencia.":"Serious challenges affect most people who choose this — going in prepared makes a huge difference."};
   return{label:isEs?"🔴 Alto Riesgo":"🔴 High Stakes",color:"#ef4444",sentence:isEs?"La mayoría enfrenta contratiempos importantes. Conocer los riesgos es tu mayor ventaja.":"Most people who go this route face major setbacks. Knowing the risks upfront is your biggest advantage."};
+}
+
+// ── PASSWORD GATE ─────────────────────────────────────────────────────────────
+function PasswordGate({onUnlock,lang="en"}){
+  const[input,setInput]=useState("");
+  const[error,setError]=useState(false);
+  const check=()=>{
+    if(input==="lifelens2025"){onUnlock();}
+    else{setError(true);setInput("");setTimeout(()=>setError(false),2000);}
+  };
+  return(
+    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20}}>
+      <div style={{textAlign:"center",marginBottom:32}}>
+        <div style={{fontSize:52,marginBottom:12}}>🧭</div>
+        <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
+        <p style={{color:C.muted,fontSize:13,marginTop:6}}>{tx(lang,"appTagline")}</p>
+      </div>
+      <div style={{background:C.card,border:`1px solid ${error?"#ef4444":C.border}`,borderRadius:18,padding:28,maxWidth:380,width:"100%",textAlign:"center",transition:"border-color 0.3s"}}>
+        <div style={{fontSize:15,fontWeight:700,color:C.accentLight,marginBottom:6}}>{tx(lang,"enterCode")}</div>
+        <div style={{fontSize:13,color:C.muted,marginBottom:20}}>{tx(lang,"privateBeta")}</div>
+        <input type="password" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&check()} placeholder={tx(lang,"enterPlaceholder")}
+          style={{width:"100%",background:C.deep,border:`1px solid ${error?"#ef4444":C.border}`,borderRadius:12,padding:"14px",color:C.text,fontSize:16,outline:"none",boxSizing:"border-box",textAlign:"center",letterSpacing:4,marginBottom:12,fontFamily:"inherit"}}/>
+        {error&&<div style={{color:"#ef4444",fontSize:13,marginBottom:10}}>{tx(lang,"wrongCode")}</div>}
+        <button onClick={check} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:12,padding:"14px",color:"white",fontSize:15,fontWeight:700,cursor:"pointer",minHeight:50,boxShadow:"0 4px 20px rgba(124,58,237,0.4)"}}>
+          {tx(lang,"enterBtn")}
+        </button>
+        <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:16}}>
+          <button onClick={()=>{}} style={{background:"#2d1a4a",border:"none",borderRadius:20,padding:"5px 14px",color:"white",fontSize:12,cursor:"pointer",opacity:lang==="en"?1:0.5}} >🇺🇸 EN</button>
+          <button onClick={()=>{}} style={{background:"#2d1a4a",border:"none",borderRadius:20,padding:"5px 14px",color:"white",fontSize:12,cursor:"pointer",opacity:lang==="es"?1:0.5}}>🇪🇸 ES</button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // ── WELCOME BRIDGE ────────────────────────────────────────────────────────────
@@ -1420,6 +1463,7 @@ function Onboarding({onComplete,lang,setLang}){
 
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 export default function LifeLens(){
+  const[unlocked,setUnlocked]=useState(()=>{try{return sessionStorage.getItem("ll_unlocked")==="true";}catch{return false;}});
   const[profile,setProfile]=useState(null);
   const[showBridge,setShowBridge]=useState(false);
   const[tab,setTab]=useState("explorer");
@@ -1449,6 +1493,12 @@ export default function LifeLens(){
     setShowBridge(true);
   };
 
+  const handleUnlock=()=>{
+    try{sessionStorage.setItem("ll_unlocked","true");}catch{}
+    setUnlocked(true);
+  };
+
+  if(!unlocked)return(<PasswordGate onUnlock={handleUnlock} lang={lang}/>);
   if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang}/>);
   if(showBridge)return(<WelcomeBridge onReady={()=>setShowBridge(false)} lang={lang}/>);
 
