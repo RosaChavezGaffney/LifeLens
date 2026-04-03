@@ -92,12 +92,12 @@ const tx=(lang,key)=>{
 };
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
-const RACES=["White","Black","Hispanic","Asian","Indigenous","Multiracial / Other"];
-const GENDERS=["Man","Woman","Non-binary / Gender non-conforming"];
+const RACES=["Asian","Black","Hispanic","Indigenous","Multiracial / Other","White"];
+const GENDERS=["Man","Non-binary / Gender non-conforming","Woman"];
 const SOCIO=["Low income","Working class","Middle class","Upper middle class"];
 const REGIONS=["Urban (major city)","Suburban","Small city / town","Rural"];
-const RACES_ES=["Blanco/a","Negro/a","Hispano/a","Asiático/a","Indígena","Multirracial / Otro"];
-const GENDERS_ES=["Hombre","Mujer","No binario / No conforme con el género"];
+const RACES_ES=["Asiático/a","Negro/a","Hispano/a","Indígena","Multirracial / Otro","Blanco/a"];
+const GENDERS_ES=["Hombre","No binario / No conforme con el género","Mujer"];
 const SOCIO_ES=["Bajos ingresos","Clase trabajadora","Clase media","Clase media alta"];
 const REGIONS_ES=["Urbano (ciudad grande)","Suburbano","Ciudad / pueblo pequeño","Rural"];
 const getRaceEs=(r)=>{const i=RACES.indexOf(r);return i>=0?RACES_ES[i]:r;};
@@ -721,9 +721,10 @@ function getRiskLevel(s,lang="en"){
 }
 
 // ── PASSWORD GATE ─────────────────────────────────────────────────────────────
-function PasswordGate({onUnlock,lang="en"}){
+function PasswordGate({onUnlock,lang="en",setLang}){
   const[input,setInput]=useState("");
   const[error,setError]=useState(false);
+  const isEs=lang==="es";
   const check=()=>{
     if(input==="lifelens2025"){onUnlock();}
     else{setError(true);setInput("");setTimeout(()=>setError(false),2000);}
@@ -744,9 +745,10 @@ function PasswordGate({onUnlock,lang="en"}){
         <button onClick={check} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:12,padding:"14px",color:"white",fontSize:15,fontWeight:700,cursor:"pointer",minHeight:50,boxShadow:"0 4px 20px rgba(124,58,237,0.4)"}}>
           {tx(lang,"enterBtn")}
         </button>
+        {/* Language toggle — underneath the Enter button */}
         <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:16}}>
-          <button onClick={()=>{}} style={{background:"#2d1a4a",border:"none",borderRadius:20,padding:"5px 14px",color:"white",fontSize:12,cursor:"pointer",opacity:lang==="en"?1:0.5}} >🇺🇸 EN</button>
-          <button onClick={()=>{}} style={{background:"#2d1a4a",border:"none",borderRadius:20,padding:"5px 14px",color:"white",fontSize:12,cursor:"pointer",opacity:lang==="es"?1:0.5}}>🇪🇸 ES</button>
+          <button onClick={()=>setLang("en")} style={{background:lang==="en"?C.accent:"#2d1a4a",border:"none",borderRadius:20,padding:"6px 16px",color:"white",fontSize:12,fontWeight:lang==="en"?700:400,cursor:"pointer"}}>🇺🇸 EN</button>
+          <button onClick={()=>setLang("es")} style={{background:lang==="es"?C.accent:"#2d1a4a",border:"none",borderRadius:20,padding:"6px 16px",color:"white",fontSize:12,fontWeight:lang==="es"?700:400,cursor:"pointer"}}>🇪🇸 ES</button>
         </div>
       </div>
     </div>
@@ -1412,8 +1414,8 @@ function Onboarding({onComplete,lang,setLang}){
   const[step,setStep]=useState(0);
   const[profile,setProfile]=useState({race:"",gender:"",socioeconomic:"",region:""});
   const fields=[
-    {key:"race",label:"How do you identify racially or ethnically?",labelEs:"¿Cómo te identificas racial o étnicamente?",icon:"🌍",options:RACES,optionsEs:RACES_ES},
-    {key:"gender",label:"How do you identify?",labelEs:"¿Cómo te identificas?",icon:"🧬",options:GENDERS,optionsEs:GENDERS_ES},
+    {key:"race",label:"How do you identify racially or ethnically?",labelEs:"¿Cómo te identificas racial o étnicamente?",icon:"🌍",options:RACES,optionsEs:RACES_ES,alphNote:true},
+    {key:"gender",label:"How do you identify?",labelEs:"¿Cómo te identificas?",icon:"🧬",options:GENDERS,optionsEs:GENDERS_ES,alphNote:true},
     {key:"socioeconomic",label:"What best describes your economic background?",labelEs:"¿Qué describe mejor tu contexto económico?",icon:"💵",options:SOCIO,optionsEs:SOCIO_ES},
     {key:"region",label:"What type of area do you live in?",labelEs:"¿En qué tipo de área vives?",icon:"📍",options:REGIONS,optionsEs:REGIONS_ES},
   ];
@@ -1452,7 +1454,8 @@ function Onboarding({onComplete,lang,setLang}){
               <span style={{fontSize:13,color:C.accentLight,fontWeight:700}}>{Math.round((step/fields.length)*100)}%</span>
             </div>
             <div style={{fontSize:26,textAlign:"center",marginBottom:10}}>{f.icon}</div>
-            <h2 style={{color:C.text,fontSize:17,fontWeight:700,textAlign:"center",marginBottom:18,lineHeight:1.4}}>{lang==="es"?f.labelEs:f.label}</h2>
+            <h2 style={{color:C.text,fontSize:17,fontWeight:700,textAlign:"center",marginBottom:f.alphNote?6:18,lineHeight:1.4}}>{lang==="es"?f.labelEs:f.label}</h2>
+            {f.alphNote&&<div style={{fontSize:12,color:C.muted,fontStyle:"italic",textAlign:"center",marginBottom:14}}>{lang==="es"?"en orden alfabético":"in alphabetical order"}</div>}
             {f.options.map((opt,oi)=><button key={opt} onClick={()=>pick(opt)} style={{display:"block",width:"100%",background:profile[f.key]===opt?"rgba(124,58,237,0.2)":C.deep,border:`1px solid ${profile[f.key]===opt?C.accent:C.border}`,borderRadius:12,padding:"14px 16px",color:profile[f.key]===opt?C.accentLight:C.muted,fontSize:15,fontWeight:profile[f.key]===opt?700:400,cursor:"pointer",textAlign:"left",marginBottom:10,minHeight:52}}>{lang==="es"&&f.optionsEs?f.optionsEs[oi]:opt}</button>)}
           </div>
         </>
@@ -1498,7 +1501,7 @@ export default function LifeLens(){
     setUnlocked(true);
   };
 
-  if(!unlocked)return(<PasswordGate onUnlock={handleUnlock} lang={lang}/>);
+  if(!unlocked)return(<PasswordGate onUnlock={handleUnlock} lang={lang} setLang={handleLang}/>);
   if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang}/>);
   if(showBridge)return(<WelcomeBridge onReady={()=>setShowBridge(false)} lang={lang}/>);
 
