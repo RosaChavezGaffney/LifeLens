@@ -730,7 +730,7 @@ function PasswordGate({onUnlock,lang="en",setLang}){
     else{setError(true);setInput("");setTimeout(()=>setError(false),2000);}
   };
   return(
-    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20}}>
+    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
       <div style={{textAlign:"center",marginBottom:32}}>
         <div style={{fontSize:52,marginBottom:12}}>🧭</div>
         <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
@@ -762,7 +762,7 @@ function WelcomeBridge({onReady,lang="en"}){
   const descs_en=["Most people on this path navigate it well. Challenges exist but are very manageable with basic preparation.","Real challenges ahead. Most people get through — but going in eyes-open makes a significant difference.","This path hits most people hard in at least one area. Preparation isn't optional here — it's essential.","The majority of people who take this route face major setbacks. Knowing this upfront is your biggest advantage."];
   const descs_es=["La mayoría navega bien este camino. Los desafíos existen pero son manejables con preparación básica.","Hay desafíos reales. La mayoría lo logra — pero ir con los ojos abiertos marca una diferencia significativa.","Este camino golpea fuerte en al menos un área. La preparación no es opcional aquí — es esencial.","La mayoría de las personas que toman esta ruta enfrentan contratiempos importantes. Saber esto es tu mayor ventaja."];
   return(
-    <div style={{background:C.bg,minHeight:"100%",overflowY:"auto",padding:"24px 20px 40px",maxWidth:480,margin:"0 auto"}}>
+    <div style={{background:C.bg,minHeight:"100%",overflowY:"auto",padding:"24px 20px 40px",maxWidth:480,margin:"0 auto",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
       <div style={{textAlign:"center",marginBottom:28}}>
         <div style={{fontSize:44,marginBottom:10}}>🧭</div>
         <div style={{fontSize:22,fontWeight:900,color:C.accentLight,marginBottom:6}}>{isEs?"Antes de empezar...":"Before you explore your data..."}</div>
@@ -1427,8 +1427,7 @@ function Onboarding({onComplete,lang,setLang}){
     else{setTimeout(()=>onComplete(updated),180);}
   };
   return(
-    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20}}>
-      <div style={{textAlign:"center",marginBottom:28}}>
+    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>\n      <div style={{textAlign:"center",marginBottom:28}}>
         <div style={{fontSize:48,marginBottom:10}}>🧭</div>
         <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
         <p style={{color:C.muted,fontSize:13,marginTop:6}}>{tx(lang,"appTagline")}</p>
