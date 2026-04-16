@@ -1529,21 +1529,19 @@ export default function LifeLens(){
   const[lang,setLang]=useState("en");
 
   useEffect(()=>{
-    (async()=>{
-      try{const r=await window.storage.get("lifelens_saved_v3");if(r?.value)setSaved(JSON.parse(r.value));}catch{}
-      try{const r=await window.storage.get("lifelens_lang");if(r?.value)setLang(r.value);}catch{}
-    })();
+    try{const d=localStorage.getItem("lifelens_saved_v3");if(d)setSaved(JSON.parse(d));}catch{}
+    try{const l=localStorage.getItem("lifelens_lang");if(l)setLang(l);}catch{}
   },[]);
 
-  const handleSave=async(id)=>{
+  const handleSave=(id)=>{
     const updated=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
     setSaved(updated);
-    try{await window.storage.set("lifelens_saved_v3",JSON.stringify(updated));}catch{}
+    try{localStorage.setItem("lifelens_saved_v3",JSON.stringify(updated));}catch{}
   };
 
-  const handleLang=async(l)=>{
+  const handleLang=(l)=>{
     setLang(l);
-    try{await window.storage.set("lifelens_lang",l);}catch{}
+    try{localStorage.setItem("lifelens_lang",l);}catch{}
   };
 
   const handleOnboardingComplete=(p)=>{
@@ -1577,12 +1575,15 @@ export default function LifeLens(){
           <button onClick={()=>handleLang(lang==="en"?"es":"en")} style={{background:"#2d1a4a",border:`1px solid ${C.border}`,borderRadius:20,padding:"4px 12px",color:C.accentLight,fontSize:12,fontWeight:700,cursor:"pointer"}}>
             {lang==="en"?"🇪🇸 ES":"🇺🇸 EN"}
           </button>
-          <div style={{width:1,height:16,background:C.border}}/>
-          <span style={{fontSize:11,color:C.muted}}>{lang==="es"?getRaceEs(profile.race):profile.race}</span>
           <button onClick={()=>{setProfile(null);setShowBridge(false);}} style={{background:"none",border:`1px solid ${C.border}`,borderRadius:8,padding:"4px 10px",color:C.muted,fontSize:11,cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>
             ✏️ {tx(lang,"editProfile")}
           </button>
         </div>
+      </div>
+      <div style={{background:"rgba(124,58,237,0.1)",borderBottom:`1px solid ${C.border}`,padding:"7px 16px",textAlign:"center"}}>
+        <span style={{fontSize:12,color:C.muted,letterSpacing:"0.3px"}}>
+          {lang==="es"?getRaceEs(profile.race):profile.race} · {lang==="es"?getGenderEs(profile.gender):profile.gender} · {lang==="es"?getSocioEs(profile.socioeconomic):profile.socioeconomic} · {lang==="es"?getRegionEs(profile.region):profile.region}{profile.state?` · ${profile.state}`:""}
+        </span>
       </div>
       <div style={{maxWidth:600,margin:"0 auto",padding:"16px 14px"}}>
         {tab==="explorer"&&<ScenarioExplorer profile={profile} saved={saved} onSave={handleSave} lang={lang}/>}
