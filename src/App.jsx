@@ -96,11 +96,11 @@ const tx=(lang,key)=>{
 };
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
-const RACES=["White","Black","Hispanic","Asian","Indigenous","Multiracial / Other"];
+const RACES=["Asian","Black","Hispanic","Indigenous","Multiracial / Other","White"];
 const GENDERS=["Man","Woman","Non-binary / Gender non-conforming"];
 const SOCIO=["Low income","Working class","Middle class","Upper middle class"];
 const REGIONS=["Urban (major city)","Suburban","Small city / town","Rural"];
-const RACES_ES=["Blanco/a","Negro/a","Hispano/a","Asiático/a","Indígena","Multirracial / Otro"];
+const RACES_ES=["Asiático/a","Negro/a","Hispano/a","Indígena","Multirracial / Otro","Blanco/a"];
 const GENDERS_ES=["Hombre","Mujer","No binario / No conforme con el género"];
 const SOCIO_ES=["Bajos ingresos","Clase trabajadora","Clase media","Clase media alta"];
 const REGIONS_ES=["Urbano (ciudad grande)","Suburbano","Ciudad / pueblo pequeño","Rural"];
@@ -1507,7 +1507,8 @@ function Onboarding({onComplete,lang,setLang}){
               <span style={{fontSize:13,color:C.accentLight,fontWeight:700}}>{Math.round((step/fields.length)*100)}%</span>
             </div>
             <div style={{fontSize:26,textAlign:"center",marginBottom:10}}>{f.icon}</div>
-            <h2 style={{color:C.text,fontSize:17,fontWeight:700,textAlign:"center",marginBottom:18,lineHeight:1.4}}>{lang==="es"?f.labelEs:f.label}</h2>
+            <h2 style={{color:C.text,fontSize:17,fontWeight:700,textAlign:"center",marginBottom:6,lineHeight:1.4}}>{lang==="es"?f.labelEs:f.label}</h2>
+            {f.key==="race"&&<div style={{textAlign:"center",fontSize:12,color:C.muted,fontStyle:"italic",marginBottom:16}}>{lang==="es"?"En orden alfabético":"Listed in alphabetical order"}</div>}
             <div style={f.scrollable?{maxHeight:320,overflowY:"auto",paddingRight:4}:{}}>
               {f.options.map((opt,oi)=><button key={opt} onClick={()=>pick(opt)} style={{display:"block",width:"100%",background:profile[f.key]===opt?"rgba(124,58,237,0.2)":C.deep,border:`1px solid ${profile[f.key]===opt?C.accent:C.border}`,borderRadius:12,padding:"14px 16px",color:profile[f.key]===opt?C.accentLight:C.muted,fontSize:15,fontWeight:profile[f.key]===opt?700:400,cursor:"pointer",textAlign:"left",marginBottom:10,minHeight:52}}>{lang==="es"&&f.optionsEs?f.optionsEs[oi]:opt}</button>)}
             </div>
@@ -1527,21 +1528,19 @@ export default function LifeLens(){
   const[lang,setLang]=useState("en");
 
   useEffect(()=>{
-    (async()=>{
-      try{const r=await window.storage.get("lifelens_saved_v3");if(r?.value)setSaved(JSON.parse(r.value));}catch{}
-      try{const r=await window.storage.get("lifelens_lang");if(r?.value)setLang(r.value);}catch{}
-    })();
+    try{const d=localStorage.getItem("lifelens_saved_v3");if(d)setSaved(JSON.parse(d));}catch{}
+    try{const l=localStorage.getItem("lifelens_lang");if(l)setLang(l);}catch{}
   },[]);
 
-  const handleSave=async(id)=>{
+  const handleSave=(id)=>{
     const updated=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
     setSaved(updated);
-    try{await window.storage.set("lifelens_saved_v3",JSON.stringify(updated));}catch{}
+    try{localStorage.setItem("lifelens_saved_v3",JSON.stringify(updated));}catch{}
   };
 
-  const handleLang=async(l)=>{
+  const handleLang=(l)=>{
     setLang(l);
-    try{await window.storage.set("lifelens_lang",l);}catch{}
+    try{localStorage.setItem("lifelens_lang",l);}catch{}
   };
 
   const handleOnboardingComplete=(p)=>{
