@@ -36,11 +36,13 @@ const TX = {
     yourShadowSelf:"✨ Your Shadow Self",tryAgain:"↺ Write a New Story",
     messageFrom:"A message for you:",
     readyBtn:"I'm Ready — Show Me My Data →",
-    enterCode:"Enter your access code",
-    privateBeta:"LifeLens is in private beta — enter the code to continue.",
-    enterPlaceholder:"Access code",
-    wrongCode:"Incorrect code. Please try again.",
-    enterBtn:"Enter LifeLens →",
+    stateStep:"What state do you live in?",
+    stateResources:"📍 Resources in",
+    teenHelpLabel:"Teen Help",
+    youthJobsLabel:"Youth Jobs & Services",
+    crisisHotlineLabel:"Crisis Hotline",
+    scholarshipsLabel:"Scholarships",
+    questions5:"We'll ask 5 quick questions to personalize your results.",
   },
   es: {
     appTagline:"Datos reales · Decisiones reales · Tu futuro",
@@ -77,11 +79,13 @@ const TX = {
     yourShadowSelf:"✨ Tu Sombra Personal",tryAgain:"↺ Escribir Una Nueva Historia",
     messageFrom:"Un mensaje para ti:",
     readyBtn:"Estoy Listo/a — Muéstrame los Datos →",
-    enterCode:"Ingresa tu código de acceso",
-    privateBeta:"LifeLens está en versión privada — ingresa el código para continuar.",
-    enterPlaceholder:"Código de acceso",
-    wrongCode:"Código incorrecto. Por favor intenta de nuevo.",
-    enterBtn:"Entrar a LifeLens →",
+    stateStep:"¿En qué estado vives?",
+    stateResources:"📍 Recursos en",
+    teenHelpLabel:"Ayuda para Jóvenes",
+    youthJobsLabel:"Empleos y Servicios Juveniles",
+    crisisHotlineLabel:"Línea de Crisis",
+    scholarshipsLabel:"Becas",
+    questions5:"Te haremos 5 preguntas rápidas para personalizar tus resultados.",
   }
 };
 const tx=(lang,key)=>{
@@ -92,18 +96,85 @@ const tx=(lang,key)=>{
 };
 
 // ── CONSTANTS ─────────────────────────────────────────────────────────────────
-const RACES=["Asian","Black","Hispanic","Indigenous","Multiracial / Other","White"];
-const GENDERS=["Man","Non-binary / Gender non-conforming","Woman"];
+const RACES=["White","Black","Hispanic","Asian","Indigenous","Multiracial / Other"];
+const GENDERS=["Man","Woman","Non-binary / Gender non-conforming"];
 const SOCIO=["Low income","Working class","Middle class","Upper middle class"];
 const REGIONS=["Urban (major city)","Suburban","Small city / town","Rural"];
-const RACES_ES=["Asiático/a","Negro/a","Hispano/a","Indígena","Multirracial / Otro","Blanco/a"];
-const GENDERS_ES=["Hombre","No binario / No conforme con el género","Mujer"];
+const RACES_ES=["Blanco/a","Negro/a","Hispano/a","Asiático/a","Indígena","Multirracial / Otro"];
+const GENDERS_ES=["Hombre","Mujer","No binario / No conforme con el género"];
 const SOCIO_ES=["Bajos ingresos","Clase trabajadora","Clase media","Clase media alta"];
 const REGIONS_ES=["Urbano (ciudad grande)","Suburbano","Ciudad / pueblo pequeño","Rural"];
 const getRaceEs=(r)=>{const i=RACES.indexOf(r);return i>=0?RACES_ES[i]:r;};
 const getGenderEs=(g)=>{const i=GENDERS.indexOf(g);return i>=0?GENDERS_ES[i]:g;};
 const getSocioEs=(s)=>{const i=SOCIO.indexOf(s);return i>=0?SOCIO_ES[i]:s;};
 const getRegionEs=(r)=>{const i=REGIONS.indexOf(r);return i>=0?REGIONS_ES[i]:r;};
+
+// ── ALL STATES ────────────────────────────────────────────────────────────────
+const ALL_STATES=[
+  "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut",
+  "Delaware","Washington D.C.","Florida","Georgia","Hawaii","Idaho","Illinois",
+  "Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland",
+  "Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana",
+  "Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York",
+  "North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania",
+  "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah",
+  "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"
+];
+
+// ── STATE RESOURCES ───────────────────────────────────────────────────────────
+const STATE_RESOURCES={
+  "Alabama":{teenHelp:"https://namialabama.org/",youthJobs:"https://calhoun.edu/summer-youth-program-with-the-department-of-human-resources-dhr/",crisisHotline:"https://www.alabamapublichealth.gov/suicide/crisis-numbers.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/alabama-scholarships"},
+  "Alaska":{teenHelp:"https://namialaska.org/",youthJobs:"https://jobs.alaska.gov/youth/index.html",crisisHotline:"https://health.alaska.gov/en/services/988-suicide-crisis-lifeline/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/alaska-scholarships"},
+  "Arizona":{teenHelp:"https://teenlifeline.org/",youthJobs:"https://www.pima.gov/1007/Summer-Youth-Employment-Program",crisisHotline:"https://www.azahcccs.gov/BehavioralHealth/crisis.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/arizona-scholarships"},
+  "Arkansas":{teenHelp:"https://tascnwa.org/restore/",youthJobs:"https://www.littlerock.gov/city-administration/city-departments/community-programs/little-rock-career-climb/",crisisHotline:"https://www.arcrisis.org/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/arkansas-scholarships"},
+  "California":{teenHelp:"https://www.teenline.org/",youthJobs:"https://www.hirelayouth.com/",crisisHotline:"https://www.cdph.ca.gov/Programs/CCDPHP/DCDIC/SACB/Pages/Crisis-Hotlines--Resources.aspx",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/california-scholarships"},
+  "Colorado":{teenHelp:"https://cdphe.colorado.gov/youth",youthJobs:"https://cdle.colorado.gov/jobs-training/youth/gsjh",crisisHotline:"https://coloradocrisisservices.org/below-the-surface/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/colorado-scholarships"},
+  "Connecticut":{teenHelp:"https://namict.org/",youthJobs:"https://portal.ct.gov/dol/divisions/workforce-innovation-and-opportunity-act-wioa-administration-unit/ct-youth-employment-information",crisisHotline:"https://namict.org/crisis-info/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/connecticut-scholarships"},
+  "Delaware":{teenHelp:"https://dethrives.com/services-for-me/teens",youthJobs:"https://www.cdoworkforce.org/youth-seekers/under-25/summer-jobs",crisisHotline:"https://www.dhss.delaware.gov/dsamh/crisis_intervention.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/delaware-scholarships"},
+  "Washington D.C.":{teenHelp:"https://dhs.dc.gov/page/youth-services-and-support",youthJobs:"https://summerjobs.dc.gov/page/youth",crisisHotline:"https://www.whitman-walker.org/health-services/behavioral-health/emergency-helplines/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/district-of-columbia-scholarships"},
+  "Florida":{teenHelp:"https://namiflorida.org/",youthJobs:"https://www.careersourcecentralflorida.com/career-seekers/young-adults/summer-youth-program/",crisisHotline:"https://www.floridahealth.gov/programs-and-services/prevention/mental-health/links.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/florida-scholarships"},
+  "Georgia":{teenHelp:"https://voxatl.org/home/teen-mental-health/",youthJobs:"https://www.atlyearoftheyouth.com/summer-jobs",crisisHotline:"https://988ga.org/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/georgia-scholarships"},
+  "Hawaii":{teenHelp:"https://www.teenlinkhawaii.org/",youthJobs:"https://www.honolulu.gov/parks/program/summer-fun-program/182-site-dpr-cat/1706-summer-student-employment-program.html",crisisHotline:"https://hicares.hawaii.gov/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/hawaii-scholarships"},
+  "Idaho":{teenHelp:"https://yes.idaho.gov/youth-empowerment-services/getting-started/youth/",youthJobs:"https://www.labor.idaho.gov/wioa/youth/",crisisHotline:"https://thecrisishotline.org/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/idaho-scholarships"},
+  "Illinois":{teenHelp:"https://www.safe2helpil.com/",youthJobs:"https://youthjobcenter.org/",crisisHotline:"https://www.dhs.state.il.us/page.aspx?item=145089",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/illinois-scholarships"},
+  "Indiana":{teenHelp:"https://mcpl.info/teens/teens",youthJobs:"https://www.teenworks.org/summer-program",crisisHotline:"https://988indiana.org/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/indiana-scholarships"},
+  "Iowa":{teenHelp:"https://yourlifeiowa.org/help-for-teens",youthJobs:"https://workforce.iowa.gov/jobs/worker-programs/youth-and-young-adult",crisisHotline:"https://wellbeing.uiowa.edu/247-crisis-support",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/iowa-scholarships"},
+  "Kansas":{teenHelp:"https://www.soskansas.com/helpateen",youthJobs:"https://sekworks.org/keys-syep/",crisisHotline:"https://www.dcf.ks.gov/Pages/hotlineNumbers.aspx",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/kansas-scholarships"},
+  "Kentucky":{teenHelp:"https://namiky.org/your-journey/kids-teens-and-young-adults/teen-young-adult-resources/",youthJobs:"https://kcc.ky.gov/Training/pages/youth.aspx",crisisHotline:"https://988.ky.gov/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/kentucky-scholarships"},
+  "Louisiana":{teenHelp:"https://www.psychologytoday.com/us/groups/louisiana?category=adolescents-teenagers-14-to-19",youthJobs:"https://www.laworks.net/youth_portal/YP_Text_menu.asp",crisisHotline:"https://vialink.org/text/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/louisiana-scholarships"},
+  "Maine":{teenHelp:"https://www.portlandlibrary.com/highlight/teen-health-resources/",youthJobs:"https://treestreetyouth.org/get-involved/jobs-internships/",crisisHotline:"https://www.maine.gov/dhhs/about/contact/hotlines",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/maine-scholarships"},
+  "Maryland":{teenHelp:"https://dhs.maryland.gov/out-of-home-care/youth-resources/",youthJobs:"https://moed.baltimorecity.gov/youth-services/summer-jobs",crisisHotline:"https://health.maryland.gov/bha/Pages/988md.aspx",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/maryland-scholarships"},
+  "Massachusetts":{teenHelp:"https://www.mass.gov/orgs/dmh-child-youth-and-family-services",youthJobs:"https://www.mass.gov/masshire-youth-training-and-employment-opportunities",crisisHotline:"https://www.mass.gov/info-details/specialized-hotlines",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/massachusetts-scholarships"},
+  "Michigan":{teenHelp:"https://www.michigan.gov/myca/resources-for-youth-under-age-16",youthJobs:"https://www.mwse.org/sye/",crisisHotline:"https://mentalhealthhotline.org/michigan/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/michigan-scholarships"},
+  "Minnesota":{teenHelp:"https://www.mnteenmentalhealth.org/social",youthJobs:"https://mn.gov/deed/job-seekers/find-a-job/targeted-services/youth-employment/youthbuild.jsp",crisisHotline:"https://mn.gov/dhs/people-we-serve/adults/health-care/mental-health/programs-services/mobile-crisis.jsp",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/minnesota-scholarships"},
+  "Mississippi":{teenHelp:"https://msdh.ms.gov/msdhsite/index.cfm/42,6142,304,366,html",youthJobs:"https://www.findhelp.org/mid-state-opportunity,-inc.--olive-branch-ms--summer-youth-employment-program/6301003724357632",crisisHotline:"https://www.dmh.ms.gov/help/crisis-services/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/mississippi-scholarships"},
+  "Missouri":{teenHelp:"https://www.behavioralhealthresponse.com/",youthJobs:"https://www.dhewd.mo.gov/youth.php",crisisHotline:"https://www.mimh.edu/mimhresources/988/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/missouri-scholarships"},
+  "Montana":{teenHelp:"https://dphhs.mt.gov/ecfsd/teenyoungadultresources",youthJobs:"https://wsd.dli.mt.gov/programs/youth-program",crisisHotline:"https://mentalhealthhotline.org/montana/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/montana-scholarships"},
+  "Nebraska":{teenHelp:"https://dhhs.ne.gov/Pages/Adolescent-Health.aspx",youthJobs:"https://stepupomaha.com/",crisisHotline:"https://dhhs.ne.gov/Pages/988-Suicide-and-Crisis-Lifeline.aspx",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/nebraska-scholarships"},
+  "Nevada":{teenHelp:"https://hopemeansnevada.org/for-teens/",youthJobs:"https://www.nevada211.org/employment-services/youth-employment/",crisisHotline:"https://cssnv.org/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/nevada-scholarships"},
+  "New Hampshire":{teenHelp:"https://childrensbehavioralhealthresources.nh.gov/families-youth",youthJobs:"https://manchesterproud.org/resources/summer-youth-program-syep/",crisisHotline:"https://www.nh988.com/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/new-hampshire-scholarships"},
+  "New Jersey":{teenHelp:"https://www.nj.gov/njyrs/",youthJobs:"https://www.princetonnj.gov/755/Summer-Youth-Employment-Program",crisisHotline:"https://njhopeline.com/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/new-jersey-scholarships"},
+  "New Mexico":{teenHelp:"https://web.ped.nm.gov/bureaus/languageandculture/youth-engagement-resources/",youthJobs:"https://www.dws.state.nm.us/en-us/Business/Resources/FAQs/category/youth",crisisHotline:"https://nmcrisisline.com/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/new-mexico-scholarships"},
+  "New York":{teenHelp:"https://www.nyc.gov/site/doh/health/health-topics/teenspace.page",youthJobs:"https://www.nyc.gov/site/dycd/services/jobs-internships/summer-youth-employment-program-syep.page",crisisHotline:"https://omh.ny.gov/omhweb/bootstrap/crisis.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/new-york-scholarships"},
+  "North Carolina":{teenHelp:"https://www.ncdhhs.gov/divisions/child-and-family-well-being/whole-child-health-section/school-adolescent-and-child-health/adolescent-health-resource-center",youthJobs:"https://www.labor.nc.gov/workplace-rights/youth-employment-rules",crisisHotline:"https://www.ncdhhs.gov/divisions/mental-health-developmental-disabilities-and-substance-use-services/crisis-services",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/north-carolina-scholarships"},
+  "North Dakota":{teenHelp:"https://www.hhs.nd.gov/health/children/special-health-services/transition-to-adult-healthcare/adolescents",youthJobs:"https://www.commerce.nd.gov/workforce/youth-careers",crisisHotline:"https://www.hhs.nd.gov/988",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/north-dakota-scholarships"},
+  "Ohio":{teenHelp:"https://dys.ohio.gov/youth-and-families/resources-for-youth",youthJobs:"https://www.youcle.org/syep",crisisHotline:"https://www.ohiomindsmatter.org/youth-families/get-help-support",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/ohio-scholarships"},
+  "Oklahoma":{teenHelp:"https://oklahoma.gov/health/health-education/children---family-health/maternal-and-child-health-service/child-and-adolescent-health/adolescent-health/adolescent-health-resources.html",youthJobs:"https://oklahoma.gov/oesc/events-calendar/2025/april/youth-2025-04-26.html",crisisHotline:"https://oklahoma.gov/odmhsas/treatment/comprehensive-crisis-response.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/oklahoma-scholarships"},
+  "Oregon":{teenHelp:"https://www.oregon.gov/odhs/children-youth/pages/youth.aspx",youthJobs:"https://www.oregon.gov/highered/about/workforce/pages/oregon-youth-works.aspx",crisisHotline:"https://www.oregon.gov/oha/hsd/amh/pages/988.aspx",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/oregon-scholarships"},
+  "Pennsylvania":{teenHelp:"https://www.pa.gov/agencies/health/programs/healthy-living/teen-health",youthJobs:"https://www.pa.gov/agencies/dcnr/programs-and-services/pennsylvania-outdoor-corps/youth-summer-program",crisisHotline:"https://www.pacarepartnership.org/resources/crisis-and-hotlines",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/pennsylvania-scholarships"},
+  "Rhode Island":{teenHelp:"https://health.ri.gov/adolescent-health/services/teen-outreach-program-r",youthJobs:"https://dlt.ri.gov/individuals/youth-employment-resources",crisisHotline:"https://bhddh.ri.gov/mental-health/individual-and-family-information/where-get-help",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/rhode-island-scholarships"},
+  "South Carolina":{teenHelp:"https://dph.sc.gov/health-wellness/child-teen-health/teens",youthJobs:"https://dew.sc.gov/youthemployment",crisisHotline:"https://osp.scdmh.org/get-help/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/south-carolina-scholarships"},
+  "South Dakota":{teenHelp:"https://doh.sd.gov/topics/mch/youth/",youthJobs:"https://dlr.sd.gov/workforce_services/individuals/young_adults/summer_passport.aspx",crisisHotline:"https://www.sdsuicideprevention.org/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/south-dakota-scholarships"},
+  "Tennessee":{teenHelp:"https://tnvoices.org/teens/",youthJobs:"https://www.tn.gov/workforce/jobs-and-education/services-by-group/services-by-group-redirect/youth-services/work-experience.html",crisisHotline:"https://www.tn.gov/behavioral-health/need-help/crisis-services/tn-statewide-crisis-phone-line.html",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/tennessee-scholarships"},
+  "Texas":{teenHelp:"https://www.dshs.texas.gov/maternal-child-health/adolescent-health/adolescent-health-related-sites",youthJobs:"https://www.twc.texas.gov/programs/youth-programs",crisisHotline:"https://www.hhs.texas.gov/services/mental-health-substance-use/mental-health-crisis-services",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/texas-scholarships"},
+  "Utah":{teenHelp:"https://utahparentcenter.org/youth-mental-health-support-groups/",youthJobs:"https://jobs.utah.gov/jobseeker/career/index.html",crisisHotline:"https://988.utah.gov/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/utah-scholarships"},
+  "Vermont":{teenHelp:"https://dcf.vermont.gov/fsd/youth",youthJobs:"https://labor.vermont.gov/VYEP",crisisHotline:"https://mentalhealth.vermont.gov/services/emergency-services/how-get-help",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/vermont-scholarships"},
+  "Virginia":{teenHelp:"https://finditva.com/teens/",youthJobs:"https://doli.virginia.gov/labor-law-youth-employment/",crisisHotline:"https://dbhds.virginia.gov/contact/need-help/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/virginia-scholarships"},
+  "Washington":{teenHelp:"https://www.teenlink.org/",youthJobs:"https://ccwa.doh.wa.gov/search?query=ND-6500.9800-850&query_label=Summer%20Youth%20Employment%20Programs&query_type=taxonomy",crisisHotline:"https://www.hca.wa.gov/free-or-low-cost-health-care/i-need-behavioral-health-support/mental-health-crisis-lines",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/washington-scholarships"},
+  "West Virginia":{teenHelp:"https://www.youthservicessystem.org/resources/parents-and-teens/79",youthJobs:"https://workforcewv.org/job-seeker/workforce-development/youth-program/",crisisHotline:"https://sprc.org/states/west-virginia/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/west-virginia-scholarships"},
+  "Wisconsin":{teenHelp:"https://www.dhs.wisconsin.gov/adolescent/index.htm",youthJobs:"https://dwd.wisconsin.gov/apprenticeship/ya/",crisisHotline:"https://www.dhs.wisconsin.gov/crisis/talk.htm",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/wisconsin-scholarships"},
+  "Wyoming":{teenHelp:"https://health.wyo.gov/publichealth/mch/youthandyoungadult-health/",youthJobs:"https://dws.wyo.gov/dws-division/vocational-rehabilitation/pathways-to-progress/personalized-programs/youth/",crisisHotline:"https://health.wyo.gov/publichealth/prevention/wivpp/suicide-prevention/",scholarships:"https://www.scholarships.com/financial-aid/college-scholarships/scholarships-by-state/wyoming-scholarships"},
+};
 const CATEGORIES=[
   {id:"education",label:"Education",labelEs:"Educación",icon:"🎓"},
   {id:"career",label:"Career",labelEs:"Carrera",icon:"💼"},
@@ -720,41 +791,6 @@ function getRiskLevel(s,lang="en"){
   return{label:isEs?"🔴 Alto Riesgo":"🔴 High Stakes",color:"#ef4444",sentence:isEs?"La mayoría enfrenta contratiempos importantes. Conocer los riesgos es tu mayor ventaja.":"Most people who go this route face major setbacks. Knowing the risks upfront is your biggest advantage."};
 }
 
-// ── PASSWORD GATE ─────────────────────────────────────────────────────────────
-function PasswordGate({onUnlock,lang="en",setLang}){
-  const[input,setInput]=useState("");
-  const[error,setError]=useState(false);
-  const isEs=lang==="es";
-  const check=()=>{
-    if(input==="lifelens2025"){onUnlock();}
-    else{setError(true);setInput("");setTimeout(()=>setError(false),2000);}
-  };
-  return(
-    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
-      <div style={{textAlign:"center",marginBottom:32}}>
-        <div style={{fontSize:52,marginBottom:12}}>🧭</div>
-        <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
-        <p style={{color:C.muted,fontSize:13,marginTop:6}}>{tx(lang,"appTagline")}</p>
-      </div>
-      <div style={{background:C.card,border:`1px solid ${error?"#ef4444":C.border}`,borderRadius:18,padding:28,maxWidth:380,width:"100%",textAlign:"center",transition:"border-color 0.3s"}}>
-        <div style={{fontSize:15,fontWeight:700,color:C.accentLight,marginBottom:6}}>{tx(lang,"enterCode")}</div>
-        <div style={{fontSize:13,color:C.muted,marginBottom:20}}>{tx(lang,"privateBeta")}</div>
-        <input type="password" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&check()} placeholder={tx(lang,"enterPlaceholder")}
-          style={{width:"100%",background:C.deep,border:`1px solid ${error?"#ef4444":C.border}`,borderRadius:12,padding:"14px",color:C.text,fontSize:16,outline:"none",boxSizing:"border-box",textAlign:"center",letterSpacing:4,marginBottom:12,fontFamily:"inherit"}}/>
-        {error&&<div style={{color:"#ef4444",fontSize:13,marginBottom:10}}>{tx(lang,"wrongCode")}</div>}
-        <button onClick={check} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:12,padding:"14px",color:"white",fontSize:15,fontWeight:700,cursor:"pointer",minHeight:50,boxShadow:"0 4px 20px rgba(124,58,237,0.4)"}}>
-          {tx(lang,"enterBtn")}
-        </button>
-        {/* Language toggle — underneath the Enter button */}
-        <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:16}}>
-          <button onClick={()=>setLang("en")} style={{background:lang==="en"?C.accent:"#2d1a4a",border:"none",borderRadius:20,padding:"6px 16px",color:"white",fontSize:12,fontWeight:lang==="en"?700:400,cursor:"pointer"}}>🇺🇸 EN</button>
-          <button onClick={()=>setLang("es")} style={{background:lang==="es"?C.accent:"#2d1a4a",border:"none",borderRadius:20,padding:"6px 16px",color:"white",fontSize:12,fontWeight:lang==="es"?700:400,cursor:"pointer"}}>🇪🇸 ES</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ── WELCOME BRIDGE ────────────────────────────────────────────────────────────
 function WelcomeBridge({onReady,lang="en"}){
   const isEs=lang==="es";
@@ -762,7 +798,7 @@ function WelcomeBridge({onReady,lang="en"}){
   const descs_en=["Most people on this path navigate it well. Challenges exist but are very manageable with basic preparation.","Real challenges ahead. Most people get through — but going in eyes-open makes a significant difference.","This path hits most people hard in at least one area. Preparation isn't optional here — it's essential.","The majority of people who take this route face major setbacks. Knowing this upfront is your biggest advantage."];
   const descs_es=["La mayoría navega bien este camino. Los desafíos existen pero son manejables con preparación básica.","Hay desafíos reales. La mayoría lo logra — pero ir con los ojos abiertos marca una diferencia significativa.","Este camino golpea fuerte en al menos un área. La preparación no es opcional aquí — es esencial.","La mayoría de las personas que toman esta ruta enfrentan contratiempos importantes. Saber esto es tu mayor ventaja."];
   return(
-    <div style={{background:C.bg,minHeight:"100%",overflowY:"auto",padding:"24px 20px 40px",maxWidth:480,margin:"0 auto",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
+    <div style={{background:C.bg,minHeight:"100%",overflowY:"auto",padding:"24px 20px 40px",maxWidth:480,margin:"0 auto"}}>
       <div style={{textAlign:"center",marginBottom:28}}>
         <div style={{fontSize:44,marginBottom:10}}>🧭</div>
         <div style={{fontSize:22,fontWeight:900,color:C.accentLight,marginBottom:6}}>{isEs?"Antes de empezar...":"Before you explore your data..."}</div>
@@ -1261,6 +1297,22 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
             </a>
           ))}
         </div>
+        {profile.state&&STATE_RESOURCES[profile.state]&&(
+          <div style={{background:"linear-gradient(135deg,#0d1f3c,#161923)",border:"1px solid #1e3a5f",borderRadius:14,padding:18,marginBottom:14}}>
+            <div style={{fontSize:15,fontWeight:700,color:"#60a5fa",marginBottom:12}}>{tx(lang,"stateResources")} {profile.state}</div>
+            {[
+              {key:"teenHelp",emoji:"🧠",labelKey:"teenHelpLabel"},
+              {key:"youthJobs",emoji:"💼",labelKey:"youthJobsLabel"},
+              {key:"crisisHotline",emoji:"📞",labelKey:"crisisHotlineLabel"},
+              {key:"scholarships",emoji:"🎓",labelKey:"scholarshipsLabel"},
+            ].map(({key,emoji,labelKey})=>(
+              <a key={key} href={STATE_RESOURCES[profile.state][key]} target="_blank" rel="noopener noreferrer" style={{display:"flex",gap:12,alignItems:"center",background:C.deep,border:`1px solid ${C.border}`,borderRadius:12,padding:14,marginBottom:8,textDecoration:"none"}}>
+                <span style={{fontSize:20,flexShrink:0}}>{emoji}</span>
+                <div style={{fontSize:14,fontWeight:700,color:"#60a5fa"}}>{tx(lang,labelKey)} ↗</div>
+              </a>
+            ))}
+          </div>
+        )}
         <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
           <span style={{fontSize:11,color:C.muted}}>{tx(lang,"sources")}</span>
           {sc.sources.map((s,i)=><span key={i} style={{fontSize:11,color:C.muted,background:C.card,padding:"3px 9px",borderRadius:8}}>{s}</span>)}
@@ -1412,12 +1464,13 @@ Tone: direct, non-judgmental, empowering. Never preachy.`;
 // ── ONBOARDING ────────────────────────────────────────────────────────────────
 function Onboarding({onComplete,lang,setLang}){
   const[step,setStep]=useState(0);
-  const[profile,setProfile]=useState({race:"",gender:"",socioeconomic:"",region:""});
+  const[profile,setProfile]=useState({race:"",gender:"",socioeconomic:"",region:"",state:""});
   const fields=[
-    {key:"race",label:"How do you identify racially or ethnically?",labelEs:"¿Cómo te identificas racial o étnicamente?",icon:"🌍",options:RACES,optionsEs:RACES_ES,alphNote:true},
-    {key:"gender",label:"How do you identify?",labelEs:"¿Cómo te identificas?",icon:"🧬",options:GENDERS,optionsEs:GENDERS_ES,alphNote:true},
-    {key:"socioeconomic",label:"What best describes your economic background?",labelEs:"¿Qué describe mejor tu contexto económico?",icon:"💵",options:SOCIO,optionsEs:SOCIO_ES},
-    {key:"region",label:"What type of area do you live in?",labelEs:"¿En qué tipo de área vives?",icon:"📍",options:REGIONS,optionsEs:REGIONS_ES},
+    {key:"race",label:"How do you identify racially or ethnically?",labelEs:"¿Cómo te identificas racial o étnicamente?",icon:"🌍",options:RACES,optionsEs:RACES_ES,scrollable:false},
+    {key:"gender",label:"How do you identify?",labelEs:"¿Cómo te identificas?",icon:"🧬",options:GENDERS,optionsEs:GENDERS_ES,scrollable:false},
+    {key:"socioeconomic",label:"What best describes your economic background?",labelEs:"¿Qué describe mejor tu contexto económico?",icon:"💵",options:SOCIO,optionsEs:SOCIO_ES,scrollable:false},
+    {key:"region",label:"What type of area do you live in?",labelEs:"¿En qué tipo de área vives?",icon:"📍",options:REGIONS,optionsEs:REGIONS_ES,scrollable:false},
+    {key:"state",label:TX.en.stateStep,labelEs:TX.es.stateStep,icon:"🗺️",options:ALL_STATES,scrollable:true},
   ];
   const f=fields[step-1];
   const pick=(val)=>{
@@ -1427,7 +1480,8 @@ function Onboarding({onComplete,lang,setLang}){
     else{setTimeout(()=>onComplete(updated),180);}
   };
   return(
-    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>\n      <div style={{textAlign:"center",marginBottom:28}}>
+    <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20}}>
+      <div style={{textAlign:"center",marginBottom:28}}>
         <div style={{fontSize:48,marginBottom:10}}>🧭</div>
         <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
         <p style={{color:C.muted,fontSize:13,marginTop:6}}>{tx(lang,"appTagline")}</p>
@@ -1439,7 +1493,7 @@ function Onboarding({onComplete,lang,setLang}){
       {step===0
         ?<div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:18,padding:26,maxWidth:400,width:"100%",textAlign:"center"}}>
           <p style={{color:"#ede9fe",fontSize:15,lineHeight:1.75,marginBottom:22}}>{tx(lang,"onboardingIntro")}</p>
-          <div style={{color:C.muted,fontSize:13,marginBottom:22}}>{tx(lang,"questions4")}</div>
+          <div style={{color:C.muted,fontSize:13,marginBottom:22}}>{tx(lang,"questions5")}</div>
           <button onClick={()=>setStep(1)} style={{background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px",width:"100%",color:"white",fontSize:16,fontWeight:700,cursor:"pointer",minHeight:52,boxShadow:"0 4px 20px rgba(124,58,237,0.4)"}}>{tx(lang,"getStarted")}</button>
           <div style={{marginTop:14,fontSize:12,color:C.muted}}>{tx(lang,"onboardingPrivacy")}</div>
         </div>
@@ -1453,9 +1507,10 @@ function Onboarding({onComplete,lang,setLang}){
               <span style={{fontSize:13,color:C.accentLight,fontWeight:700}}>{Math.round((step/fields.length)*100)}%</span>
             </div>
             <div style={{fontSize:26,textAlign:"center",marginBottom:10}}>{f.icon}</div>
-            <h2 style={{color:C.text,fontSize:17,fontWeight:700,textAlign:"center",marginBottom:f.alphNote?6:18,lineHeight:1.4}}>{lang==="es"?f.labelEs:f.label}</h2>
-            {f.alphNote&&<div style={{fontSize:12,color:C.muted,fontStyle:"italic",textAlign:"center",marginBottom:14}}>{lang==="es"?"en orden alfabético":"in alphabetical order"}</div>}
-            {f.options.map((opt,oi)=><button key={opt} onClick={()=>pick(opt)} style={{display:"block",width:"100%",background:profile[f.key]===opt?"rgba(124,58,237,0.2)":C.deep,border:`1px solid ${profile[f.key]===opt?C.accent:C.border}`,borderRadius:12,padding:"14px 16px",color:profile[f.key]===opt?C.accentLight:C.muted,fontSize:15,fontWeight:profile[f.key]===opt?700:400,cursor:"pointer",textAlign:"left",marginBottom:10,minHeight:52}}>{lang==="es"&&f.optionsEs?f.optionsEs[oi]:opt}</button>)}
+            <h2 style={{color:C.text,fontSize:17,fontWeight:700,textAlign:"center",marginBottom:18,lineHeight:1.4}}>{lang==="es"?f.labelEs:f.label}</h2>
+            <div style={f.scrollable?{maxHeight:320,overflowY:"auto",paddingRight:4}:{}}>
+              {f.options.map((opt,oi)=><button key={opt} onClick={()=>pick(opt)} style={{display:"block",width:"100%",background:profile[f.key]===opt?"rgba(124,58,237,0.2)":C.deep,border:`1px solid ${profile[f.key]===opt?C.accent:C.border}`,borderRadius:12,padding:"14px 16px",color:profile[f.key]===opt?C.accentLight:C.muted,fontSize:15,fontWeight:profile[f.key]===opt?700:400,cursor:"pointer",textAlign:"left",marginBottom:10,minHeight:52}}>{lang==="es"&&f.optionsEs?f.optionsEs[oi]:opt}</button>)}
+            </div>
           </div>
         </>
       }
@@ -1465,7 +1520,6 @@ function Onboarding({onComplete,lang,setLang}){
 
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 export default function LifeLens(){
-  const[unlocked,setUnlocked]=useState(()=>{try{return sessionStorage.getItem("ll_unlocked")==="true";}catch{return false;}});
   const[profile,setProfile]=useState(null);
   const[showBridge,setShowBridge]=useState(false);
   const[tab,setTab]=useState("explorer");
@@ -1495,12 +1549,6 @@ export default function LifeLens(){
     setShowBridge(true);
   };
 
-  const handleUnlock=()=>{
-    try{sessionStorage.setItem("ll_unlocked","true");}catch{}
-    setUnlocked(true);
-  };
-
-  if(!unlocked)return(<PasswordGate onUnlock={handleUnlock} lang={lang} setLang={handleLang}/>);
   if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang}/>);
   if(showBridge)return(<WelcomeBridge onReady={()=>setShowBridge(false)} lang={lang}/>);
 
