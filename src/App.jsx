@@ -1027,7 +1027,7 @@ A teenager has shared their story. Create a personalized Shadow Self analysis. R
 Teen profile: ${profile.race}, ${profile.gender}, ${profile.socioeconomic} background, ${profile.region}
 Their story: ${story}`;
 
-      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+      const res=await fetch("/api/assess",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
       const data=await res.json();
       const raw=data.content?.find(b=>b.type==="text")?.text||"";
       const clean=raw.replace(/```json|```/g,"").trim();
@@ -1399,7 +1399,7 @@ Structure your response EXACTLY as follows:
 ## Remember This
 One powerful sentence — the most important thing for this person.
 Tone: direct, non-judgmental, empowering. Never preachy.`;
-      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+      const res=await fetch("/api/assess",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
       const data=await res.json();
       setResult(data.content?.find(b=>b.type==="text")?.text||"Unable to generate. Please try again.");
     }catch{setResult("Error generating analysis. Please try again.");}
@@ -1528,19 +1528,21 @@ export default function LifeLens(){
   const[lang,setLang]=useState("en");
 
   useEffect(()=>{
-    try{const d=localStorage.getItem("lifelens_saved_v3");if(d)setSaved(JSON.parse(d));}catch{}
-    try{const l=localStorage.getItem("lifelens_lang");if(l)setLang(l);}catch{}
+    (async()=>{
+      try{const r=await window.storage.get("lifelens_saved_v3");if(r?.value)setSaved(JSON.parse(r.value));}catch{}
+      try{const r=await window.storage.get("lifelens_lang");if(r?.value)setLang(r.value);}catch{}
+    })();
   },[]);
 
-  const handleSave=(id)=>{
+  const handleSave=async(id)=>{
     const updated=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
     setSaved(updated);
-    try{localStorage.setItem("lifelens_saved_v3",JSON.stringify(updated));}catch{}
+    try{await window.storage.set("lifelens_saved_v3",JSON.stringify(updated));}catch{}
   };
 
-  const handleLang=(l)=>{
+  const handleLang=async(l)=>{
     setLang(l);
-    try{localStorage.setItem("lifelens_lang",l);}catch{}
+    try{await window.storage.set("lifelens_lang",l);}catch{}
   };
 
   const handleOnboardingComplete=(p)=>{
