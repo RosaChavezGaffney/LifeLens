@@ -774,12 +774,12 @@ const SCENARIOS=[
 ];
 
 const ASSESSMENT_QUESTIONS=[
-  {id:"decision",label:"What decision are you facing right now?",labelEs:"¿Qué decisión estás enfrentando ahora?",type:"text",placeholder:"e.g. Should I drop out of college and start working full-time?",placeholderEs:"ej. ¿Debería dejar la universidad y empezar a trabajar?"},
+  {id:"decision",label:"What decision are you facing right now?",labelEs:"¿Qué decisión estás enfrentando ahora?",type:"text",placeholder:"e.g. Should I drop out of college and start working full-time?",placeholderEs:"ej. ¿Debería dejar la universidad y empezar a trabajar?",hint:"Write 2–3 sentences. The more specific you are, the better your results.",hintEs:"Escribe 2–3 oraciones. Cuanto más específico/a seas, mejores serán tus resultados."},
   {id:"age",label:"How old are you?",labelEs:"¿Cuántos años tienes?",type:"select",options:["17 or younger","18–19","20–21","22–24","25–27"],optionsEs:["17 o menos","18–19","20–21","22–24","25–27"]},
-  {id:"urgency",label:"How urgent is this decision?",labelEs:"¿Qué tan urgente es esta decisión?",type:"select",options:["This week","Within a month","Within 6 months","Just exploring"],optionsEs:["Esta semana","En un mes","En 6 meses","Solo explorando"]},
+  {id:"urgency",label:"How urgent is this decision?",labelEs:"¿Qué tan urgente es esta decisión?",type:"select",options:["This week","Within a month","Within 6 months","Just curious / exploring"],optionsEs:["Esta semana","En un mes","En 6 meses","Solo curioso/a / explorando"]},
   {id:"support",label:"What kind of support do you have?",labelEs:"¿Qué tipo de apoyo tienes?",type:"select",options:["Strong family & community support","Some support","Mostly on my own","No real support network"],optionsEs:["Fuerte apoyo familiar y comunitario","Algo de apoyo","Principalmente solo/a","Sin red de apoyo real"]},
   {id:"goal",label:"What matters most to you right now?",labelEs:"¿Qué te importa más ahora mismo?",type:"select",options:["Financial security","Freedom & independence","Family & relationships","Personal growth & purpose","Making an impact"],optionsEs:["Seguridad financiera","Libertad e independencia","Familia y relaciones","Crecimiento personal y propósito","Generar un impacto"]},
-  {id:"fear",label:"What's your biggest fear about this decision?",labelEs:"¿Cuál es tu mayor miedo sobre esta decisión?",type:"text",placeholder:"Be honest — this gives you more useful insight",placeholderEs:"Sé honesto/a — esto te dará una perspectiva más útil"},
+  {id:"fear",label:"What's your biggest fear about this decision?",labelEs:"¿Cuál es tu mayor miedo sobre esta decisión?",type:"text",placeholder:"Be honest — this gives you more useful insight",placeholderEs:"Sé honesto/a — esto te dará una perspectiva más útil",hint:"No wrong answer. Even one honest sentence helps.",hintEs:"No hay respuesta incorrecta. Hasta una oración honesta ayuda."},
 ];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -1431,7 +1431,8 @@ Tone: direct, non-judgmental, empowering. Never preachy.`;
           <div style={{height:"100%",width:`${progress}%`,background:C.accent,borderRadius:2}}/>
         </div>
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:20}}>
-          <h3 style={{color:C.text,fontSize:17,fontWeight:600,marginBottom:20,lineHeight:1.4}}>{lang==="es"&&q.labelEs?q.labelEs:q.label}</h3>
+          <h3 style={{color:C.text,fontSize:17,fontWeight:600,marginBottom:q.hint?8:20,lineHeight:1.4}}>{lang==="es"&&q.labelEs?q.labelEs:q.label}</h3>
+          {q.hint&&<div style={{fontSize:12,color:C.muted,fontStyle:"italic",marginBottom:14,lineHeight:1.5}}>{lang==="es"&&q.hintEs?q.hintEs:q.hint}</div>}
           {q.type==="text"
             ?<textarea value={current} onChange={e=>setCurrent(e.target.value)} placeholder={lang==="es"&&q.placeholderEs?q.placeholderEs:q.placeholder} style={{width:"100%",background:C.deep,border:`1px solid ${C.border}`,borderRadius:12,padding:"14px",color:C.text,fontSize:16,minHeight:100,resize:"vertical",outline:"none",boxSizing:"border-box",fontFamily:"inherit"}}/>
             :((lang==="es"&&q.optionsEs?q.optionsEs:q.options).map((opt,oi)=>{const enOpt=q.options[oi];return(<button key={enOpt} onClick={()=>setCurrent(enOpt)} style={{display:"block",width:"100%",background:current===enOpt?"rgba(124,58,237,0.2)":C.deep,border:`1px solid ${current===enOpt?C.accent:C.border}`,borderRadius:12,padding:"14px 16px",color:current===enOpt?C.accentLight:C.muted,fontSize:15,cursor:"pointer",textAlign:"left",fontWeight:current===enOpt?700:400,marginBottom:8,minHeight:52}}>{opt}</button>);}))
