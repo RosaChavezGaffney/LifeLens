@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────────
 const TX = {
@@ -1771,6 +1772,7 @@ export default function LifeLens(){
           </button>
         ))}
       </div>
+      <Analytics />
       <style>{`html,body,#root{margin:0;padding:0;height:100%;}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}textarea:focus,input:focus{border-color:${C.accent}!important;outline:none;}@keyframes spin{to{transform:rotate(360deg)}}::-webkit-scrollbar{display:none;}`}</style>
     </div>
   );
