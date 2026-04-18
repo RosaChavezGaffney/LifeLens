@@ -277,6 +277,21 @@ const SHADOW_PROFILES=[
    context:"Jaylen has been scouted by an MLS development team. He also has a full academic scholarship to a Division II school.",
    bestCase:{label:"He goes to college, dominates the game, and enters the MLS Draft in 4 years",outcomes:[{icon:"💰",text:"College soccer players who enter the MLS Draft have 3x the contract negotiating power of direct youth recruits"},{icon:"🏥",text:"4 more years of physical development make him a stronger, less injury-prone professional athlete"},{icon:"💞",text:"College gives him a backup degree and a life identity beyond the sport — crucial for the 98% who don't sustain pro careers"},{icon:"⚖️",text:"Scholarship protects his family financially while he develops — going direct means giving up guaranteed education"}],stat:"NCAA college soccer players who enter MLS earn 40% higher starting contracts than direct youth development signings"},
    worstCase:{label:"He signs with the development team, gets injured, and has no degree and no pro career",outcomes:[{icon:"💰",text:"MLS development contracts average $18–25K/year — below poverty line. 78% of players never make the first team roster"},{icon:"🏥",text:"Lower-level players receive minimal medical support — one serious injury can end a career with no institutional backing"},{icon:"💞",text:"Family financial pressure multiplies if he isn't producing income — the 'great hope' narrative becomes a weight he can't carry"},{icon:"⚖️",text:"Signing as a minor requires parental consent and legal review — many young athletes sign unfavorable contracts"}],stat:"The average professional soccer career lasts 8 years — but only 1.7% of high school players ever play professionally at any level"}},
+  {name:"Kevin",age:18,emoji:"👨🏻",race:"Asian",gender:"Man",socio:"Middle class",region:"Urban (major city)",city:"New York, NY",
+   decision:"Follow his family's plan for pre-med vs. pursue computer science on his own terms",
+   context:"Kevin is a first-generation Korean-American whose parents have mapped out his entire future: top college, pre-med, doctor. He's secretly passionate about coding and has been building apps since age 14.",
+   bestCase:{label:"He has an honest conversation with his parents — and finds a path that honors both",outcomes:[{icon:"💰",text:"Computer science graduates earn $95K+ starting — more than most primary care physicians in their first 5 years"},{icon:"🏥",text:"Pursuing genuine passion reduces burnout — Asian men who 'follow the expected path' have the highest documented burnout rates"},{icon:"💞",text:"Many Asian immigrant families ultimately support their child when they see real success — the fear is usually about uncertainty, not the field"},{icon:"⚖️",text:"CS degree with a pre-med minor gives him maximum optionality — he doesn't have to choose forever at 18"}],stat:"Asian men in computer science have the highest median earnings of any demographic group in the US tech sector"},
+   worstCase:{label:"He follows the prescribed path without honesty — and burns out in year 2",outcomes:[{icon:"💰",text:"Pre-med dropout has neither the CS skills nor the medical degree — 2 years of tuition with no career path"},{icon:"🏥",text:"Asian American men are the least likely demographic to seek mental health help — burnout and depression go unaddressed"},{icon:"💞",text:"Resentment built from living someone else's dream damages family relationships more than an honest conversation would"},{icon:"⚖️",text:"Academic dismissal from pre-med programs can affect financial aid eligibility and future applications"}],stat:"40% of pre-med students drop the track — those who do so involuntarily report the highest rates of depression of any undergraduate group"}},
+  {name:"Marcus",age:17,emoji:"👦🏽",race:"Multiracial / Other",gender:"Man",socio:"Working class",region:"Suburban",city:"Houston, TX",
+   decision:"Embrace one racial identity to 'fit in' vs. own his full multiracial identity",
+   context:"Marcus is Black and Mexican. At school he's pressured to 'pick a side.' At home, both sides of his family claim him differently. He's starting to disappear into whoever the room needs him to be.",
+   bestCase:{label:"He builds a multiracial identity with intention — and finds his community",outcomes:[{icon:"💰",text:"Multiracial professionals who code-switch strategically — rather than suppress one identity — earn 18% more than peers who fully assimilate"},{icon:"🏥",text:"Strong multiracial identity is clinically linked to better mental health outcomes than assimilation to a single group"},{icon:"💞",text:"Authenticity attracts genuine friendships — the people who stay when you're fully yourself are the ones worth keeping"},{icon:"⚖️",text:"Multiracial individuals who embrace their full background have access to a wider professional and cultural network"}],stat:"Multiracial Americans are the fastest growing demographic in the US — companies actively recruiting for this perspective"},
+   worstCase:{label:"He suppresses half of who he is to fit into one community",outcomes:[{icon:"💰",text:"Identity suppression leads to lower confidence in professional settings — suppressed identity correlates with lower negotiating outcomes"},{icon:"🏥",text:"Multiracial individuals who deny part of their identity have 2x higher rates of depression than those with integrated identities"},{icon:"💞",text:"Relationships built on a partial identity eventually fracture — the weight of hiding yourself is unsustainable"},{icon:"⚖️",text:"Internalized racial hierarchy affects long-term self-advocacy — including in workplace and legal situations"}],stat:"Multiracial youth who develop strong integrated identities by age 21 report higher life satisfaction at every subsequent age measured"}},
+  {name:"Leila",age:19,emoji:"👩🏽",race:"Multiracial / Other",gender:"Woman",socio:"Middle class",region:"Urban (major city)",city:"Los Angeles, CA",
+   decision:"Transfer from community college to a 4-year university vs. stay and finish her associate degree debt-free",
+   context:"Leila is Filipino and Black. She started at community college to save money and prove herself. She's maintained a 3.9 GPA and has transfer offers from two UC campuses. Her parents want her to stay close and finish what she started.",
+   bestCase:{label:"She transfers with a clear plan, scholarship support, and family buy-in",outcomes:[{icon:"💰",text:"UC transfer graduates earn the same as students who started as freshmen — at half the cost with zero lost earning potential"},{icon:"🏥",text:"Transferring with a strong GPA gives her access to campus mental health resources, housing, and peer community she lacked at CC"},{icon:"💞",text:"Success on her own terms builds the kind of confidence that strengthens every relationship"},{icon:"⚖️",text:"UC transfer guarantees (TAG program) give her legally binding admission to specific campuses with her GPA — she has real leverage"}],stat:"California CC transfer students graduate at the same rate as freshman admits — and carry 45% less debt on average"},
+   worstCase:{label:"She stays to please her parents and watches the transfer window close",outcomes:[{icon:"💰",text:"Associate degree alone limits her to $38K median entry salary — UC degree opens $58K+ in her fields of interest"},{icon:"🏥",text:"Ignoring her own academic goals creates resentment that accumulates over years — often expressed as anxiety or disengagement"},{icon:"💞",text:"Making major life decisions to manage a parent's fear is a pattern that repeats — in relationships, jobs, and beyond"},{icon:"⚖️",text:"Transfer eligibility expires — if she waits too long, the UC TAG guarantee is no longer available"}],stat:"Only 23% of CC students who delay transfer by 2+ years eventually complete a 4-year degree — the window matters"}},
 ];
 
 // ── SHADOW SELF SPANISH TRANSLATIONS ─────────────────────────────────────────
@@ -617,6 +632,78 @@ const SHADOW_TRANSLATIONS={
       stat:"La carrera profesional de fútbol promedio dura 8 años — pero solo el 1.7% de los jugadores de escuela secundaria llegan a ser profesionales",
     },
   },
+  Kevin:{
+    decision:"Seguir el plan familiar de pre-medicina vs. estudiar ciencias de la computación por su cuenta",
+    context:"Kevin es coreano-americano de primera generación. Sus padres tienen su futuro planificado: universidad de élite, pre-medicina, doctor. En secreto le apasiona la programación y lleva construyendo aplicaciones desde los 14 años.",
+    bestCase:{
+      label:"Tiene una conversación honesta con sus padres — y encuentra un camino que honra a ambos",
+      outcomes:[
+        {icon:"💰",text:"Los egresados de ciencias de la computación ganan $95K+ de entrada — más que la mayoría de médicos de atención primaria en sus primeros 5 años"},
+        {icon:"🏥",text:"Seguir la pasión genuina reduce el agotamiento — los hombres asiáticos que 'siguen el camino esperado' tienen las tasas de burnout más altas documentadas"},
+        {icon:"💞",text:"Muchas familias inmigrantes asiáticas apoyan a sus hijos cuando ven éxito real — el miedo suele ser a la incertidumbre, no al campo elegido"},
+        {icon:"⚖️",text:"Un título en CS con una especialización en pre-medicina le da máxima opcionalidad — no tiene que elegir para siempre a los 18"},
+      ],
+      stat:"Los hombres asiáticos en ciencias de la computación tienen el salario mediano más alto de cualquier grupo demográfico en el sector tecnológico de EE.UU.",
+    },
+    worstCase:{
+      label:"Sigue el camino prescrito sin honestidad — y se agota en el segundo año",
+      outcomes:[
+        {icon:"💰",text:"Un abandono de pre-medicina no tiene ni las habilidades de CS ni el título médico — 2 años de matrícula sin ninguna trayectoria profesional"},
+        {icon:"🏥",text:"Los hombres asiático-americanos son el grupo demográfico menos propenso a buscar ayuda de salud mental — el agotamiento y la depresión no se atienden"},
+        {icon:"💞",text:"El resentimiento de vivir el sueño de otro daña las relaciones familiares más que una conversación honesta"},
+        {icon:"⚖️",text:"La expulsión académica de programas de pre-medicina puede afectar la elegibilidad para ayuda financiera y solicitudes futuras"},
+      ],
+      stat:"El 40% de los estudiantes de pre-medicina abandonan ese camino — quienes lo hacen involuntariamente reportan las tasas más altas de depresión entre todos los estudiantes universitarios",
+    },
+  },
+  Marcus:{
+    decision:"Adoptar una identidad racial para 'encajar' vs. abrazar su identidad multirracial completa",
+    context:"Marcus es negro y mexicano. En la escuela lo presionan para que 'elija un lado'. En casa, ambos lados de su familia lo reclaman de forma diferente. Está empezando a desaparecer en lo que la sala necesita que sea.",
+    bestCase:{
+      label:"Construye una identidad multirracial con intención — y encuentra su comunidad",
+      outcomes:[
+        {icon:"💰",text:"Los profesionales multirraciales que alternan códigos estratégicamente ganan 18% más que los que se asimilan completamente a un solo grupo"},
+        {icon:"🏥",text:"Una identidad multirracial sólida está clínicamente vinculada a mejores resultados de salud mental que la asimilación a un solo grupo"},
+        {icon:"💞",text:"La autenticidad atrae amistades genuinas — las personas que se quedan cuando eres completamente tú mismo son las que vale la pena conservar"},
+        {icon:"⚖️",text:"Los individuos multirraciales que abrazan su origen completo tienen acceso a una red profesional y cultural más amplia"},
+      ],
+      stat:"Los estadounidenses multirraciales son el grupo demográfico de más rápido crecimiento en EE.UU. — las empresas reclutan activamente esta perspectiva",
+    },
+    worstCase:{
+      label:"Suprime la mitad de quien es para encajar en una comunidad",
+      outcomes:[
+        {icon:"💰",text:"La supresión de identidad conduce a menor confianza en entornos profesionales — la identidad suprimida se correlaciona con peores resultados de negociación"},
+        {icon:"🏥",text:"Los individuos multirraciales que niegan parte de su identidad tienen el doble de tasas de depresión que los que tienen identidades integradas"},
+        {icon:"💞",text:"Las relaciones construidas sobre una identidad parcial eventualmente se fracturan — el peso de esconderse a uno mismo es insostenible"},
+        {icon:"⚖️",text:"La jerarquía racial internalizada afecta la autodefensa a largo plazo — incluso en situaciones laborales y legales"},
+      ],
+      stat:"Los jóvenes multirraciales que desarrollan identidades integradas sólidas a los 21 años reportan mayor satisfacción de vida en todas las edades posteriores medidas",
+    },
+  },
+  Leila:{
+    decision:"Transferirse de un colegio comunitario a una universidad de 4 años vs. quedarse y terminar su título de asociado sin deudas",
+    context:"Leila es filipina y negra. Comenzó en un colegio comunitario para ahorrar dinero y probarse a sí misma. Ha mantenido un GPA de 3.9 y tiene ofertas de transferencia de dos campus de la UC. Sus padres quieren que se quede cerca y termine lo que empezó.",
+    bestCase:{
+      label:"Se transfiere con un plan claro, apoyo de becas y el apoyo de su familia",
+      outcomes:[
+        {icon:"💰",text:"Los egresados de transferencia de la UC ganan igual que los estudiantes que comenzaron como estudiantes de primer año — a la mitad del costo"},
+        {icon:"🏥",text:"Transferirse con un GPA sólido le da acceso a recursos de salud mental, vivienda y comunidad de pares que no tenía en el CC"},
+        {icon:"💞",text:"El éxito en sus propios términos construye el tipo de confianza que fortalece cada relación"},
+        {icon:"⚖️",text:"Las garantías de transferencia de la UC (programa TAG) le dan admisión legalmente vinculante con su GPA — tiene apalancamiento real"},
+      ],
+      stat:"Los estudiantes de transferencia de CC de California se gradúan a la misma tasa que los admitidos de primer año — y llevan un 45% menos de deuda en promedio",
+    },
+    worstCase:{
+      label:"Se queda para complacer a sus padres y ve cerrarse la ventana de transferencia",
+      outcomes:[
+        {icon:"💰",text:"El título de asociado solo limita su salario de entrada a $38K — el título de la UC abre $58K+ en sus campos de interés"},
+        {icon:"🏥",text:"Ignorar sus propias metas académicas crea resentimiento que se acumula con los años — a menudo expresado como ansiedad o desconexión"},
+        {icon:"💞",text:"Tomar decisiones de vida importantes para manejar el miedo de un padre es un patrón que se repite — en relaciones, trabajos y más allá"},
+        {icon:"⚖️",text:"La elegibilidad de transferencia vence — si espera demasiado, la garantía TAG de la UC ya no está disponible"},
+      ],
+      stat:"Solo el 23% de los estudiantes de CC que retrasan la transferencia 2+ años eventualmente completan un título de 4 años — la ventana importa",
+    },
+  },
 };
 
 // ── SCENARIOS ─────────────────────────────────────────────────────────────────
@@ -661,6 +748,42 @@ const SCENARIOS=[
    beatsOdds:["A GED opens doors to community college and most jobs","Trade certifications can fully replace a degree in many fields","Adult education programs are free in most states"],
    resources:[{emoji:"📝",label:"Get Your GED",url:"https://ged.com",desc:"Official GED testing — prep resources included"},{emoji:"💼",label:"Job Corps",url:"https://www.jobcorps.gov",desc:"Free education & job training for ages 16–24"}],
    sources:["BLS 2023","Census Bureau","NCES"]},
+  {id:"salary_vs_hourly",category:"career",icon:"📄",riskScore:50,title:"Salary vs. Hourly Work",tagline:"The difference that affects every paycheck",titleEs:"Salario vs. Trabajo por Hora",taglineEs:"La diferencia que afecta cada cheque de pago",hasIntro:true,
+   introEn:{badge:"Career · Know the Basics",hook:"This affects every job you'll ever take. Most teens don't know the difference until it's too late.",quote:"A salary means you get paid the same amount every week — no matter how many hours you work. Hourly means you get paid for every hour. More hours, more money. But no hours? No money. Which sounds safer to you? The answer might surprise you.",leftLabel:"Salary",rightLabel:"Hourly",leftItems:["Same pay every week","Benefits included","No overtime pay","More stable"],rightItems:["Paid per hour worked","Overtime = more $","Hours can be cut","More flexible"],question:"Which one do most low-income workers get? Which one do most managers get? The answer is in the data."},
+   introEs:{badge:"Carrera · Conoce lo Básico",hook:"Esto afecta cada trabajo que tendrás. La mayoría de los jóvenes no conocen la diferencia hasta que es demasiado tarde.",quote:"Un salario significa que te pagan la misma cantidad cada semana — sin importar cuántas horas trabajes. Por hora significa que te pagan por cada hora. Más horas, más dinero. Pero ¿sin horas? Sin dinero. ¿Cuál suena más seguro para ti? La respuesta puede sorprenderte.",leftLabel:"Salario",rightLabel:"Por Hora",leftItems:["Mismo pago semanal","Beneficios incluidos","Sin pago de horas extra","Más estable"],rightItems:["Pagado por hora trabajada","Horas extra = más $","Horas pueden reducirse","Más flexible"],question:"¿Cuál recibe la mayoría de los trabajadores de bajos ingresos? ¿Cuál reciben la mayoría de los gerentes? La respuesta está en los datos."},
+   outcomes:{
+     financial:{headline:"Salaried workers earn 27% more over a lifetime than hourly peers in the same field",stat:"But hourly workers can earn overtime — up to 1.5x pay after 40 hrs/week",byRace:{"White":"Salary avg $58K vs hourly $43K","Black":"Salary $52K vs hourly $38K","Hispanic":"Salary $47K vs hourly $34K","Asian":"Salary $64K vs hourly $48K","Indigenous":"Salary $42K vs hourly $31K","Multiracial / Other":"Salary $50K vs hourly $37K"},byGender:{"Man":"Salary avg $62K","Woman":"Salary avg $51K","Non-binary / Gender non-conforming":"~$46K avg"}},
+     health:{headline:"74% of salaried workers have employer health insurance vs. 43% of hourly workers",stat:"Hourly workers are 2x more likely to skip medical care due to cost",byRace:{"White":"78% salaried insured","Black":"69% salaried insured","Hispanic":"61% salaried insured","Asian":"82% salaried insured","Indigenous":"58% salaried insured","Multiracial / Other":"66% salaried insured"},byGender:{"Man":"71% insured","Woman":"68% insured","Non-binary / Gender non-conforming":"~55% insured"}},
+     relationship:{headline:"Hourly schedule unpredictability is the #1 stressor reported by working parents",stat:"1 in 3 hourly workers report unpredictable schedules as their biggest daily challenge",byRace:{"All groups":"Similar — unstable schedules affect all groups equally"},byGender:{"Woman":"Disproportionately affected as primary caregivers","Man":"Similar stress","Non-binary / Gender non-conforming":"Similar"}},
+     legal:{headline:"Hourly workers have stronger overtime protections under federal law",stat:"Salaried 'exempt' employees can legally be required to work unlimited hours",byRace:{"All groups":"Same federal protections — enforcement varies"},byGender:{"All groups":"Same legal rights"}},
+   },
+   beatsOdds:["Negotiating hourly → salary is possible after 6–12 months of strong performance","Union jobs often combine hourly pay WITH salary-level benefits","Always ask 'Is this position overtime eligible?' — it's your legal right to know"],
+   resources:[{emoji:"💼",label:"Bureau of Labor Statistics — Wage Data",url:"https://www.bls.gov/bls/wages.htm",desc:"Real wage data by job, industry & region"},{emoji:"⚖️",label:"DOL Overtime Rules",url:"https://www.dol.gov/agencies/whd/overtime",desc:"Know your federal rights around overtime pay"}],
+   sources:["BLS 2023","DOL","Economic Policy Institute"]},
+  {id:"public_vs_private",category:"career",icon:"🏛️",riskScore:42,title:"Public vs. Private Sector",tagline:"Government vs. corporate jobs — the real difference",titleEs:"Sector Público vs. Privado",taglineEs:"Empleos gubernamentales vs. corporativos — la diferencia real",hasIntro:true,
+   introEn:{badge:"Career · Know the Basics",hook:"Most teens have never heard these words. By the time you finish this page, you'll never forget them.",quote:"Public sector means you work for the government — city, state, or federal. Think teachers, firefighters, postal workers, transit workers, city clerks, the FBI. Private sector means you work for a company — a store, a hospital, a tech firm, a restaurant. Most people don't realize how different the benefits, job security, and retirement look between the two.",leftLabel:"Public sector",rightLabel:"Private sector",leftItems:["Teacher / principal","NYPD / FDNY","MTA bus driver","City Hall worker"],rightItems:["Retail / restaurant","Hospital / clinic","Tech company","Bank / finance"],question:"Which one offers a pension — guaranteed retirement income for life? Which one pays more in your 20s? The data has both answers.",exampleTag:"Real examples near you"},
+   introEs:{badge:"Carrera · Conoce lo Básico",hook:"La mayoría de los jóvenes nunca han escuchado estas palabras. Cuando termines esta página, nunca las olvidarás.",quote:"El sector público significa que trabajas para el gobierno — ciudad, estado o federal. Piensa en maestros, bomberos, trabajadores postales, conductores de tránsito, empleados del ayuntamiento. El sector privado significa que trabajas para una empresa — una tienda, un hospital, una empresa tecnológica, un restaurante. La mayoría de las personas no se dan cuenta de cuán diferentes son los beneficios, la seguridad laboral y la jubilación entre los dos.",leftLabel:"Sector público",rightLabel:"Sector privado",leftItems:["Maestro/a / director/a","Policía / Bomberos","Conductor de autobús","Empleado municipal"],rightItems:["Comercio / restaurante","Hospital / clínica","Empresa tecnológica","Banco / finanzas"],question:"¿Cuál ofrece una pensión — ingresos de jubilación garantizados de por vida? ¿Cuál paga más cuando tienes 20 años? Los datos tienen ambas respuestas.",exampleTag:"Ejemplos reales cerca de ti"},
+   outcomes:{
+     financial:{headline:"Public sector pays 7% less on average — but includes pension worth $300K+ over retirement",stat:"Private sector workers must save their own retirement — most don't save enough",byRace:{"White":"Private sector median $58K vs public $54K","Black":"Public sector employs 20% of all Black workers — a key economic pathway","Hispanic":"Public sector $49K vs private $44K median","Asian":"Private sector $68K vs public $57K","Indigenous":"Public sector is primary employer in many tribal communities","Multiracial / Other":"Similar to national average"},byGender:{"Man":"Private sector $62K median","Woman":"Public sector pay gap smaller — 89 cents vs 82 cents private","Non-binary / Gender non-conforming":"Public sector has stronger anti-discrimination protections"}},
+     health:{headline:"Public sector workers have 94% employer health coverage vs. 69% private sector",stat:"Public sector benefits packages are consistently rated more comprehensive",byRace:{"All groups":"Public sector benefits apply equally — private sector varies widely by employer"},byGender:{"All groups":"Similar access in public sector; private sector varies by employer size"}},
+     relationship:{headline:"Public sector job security dramatically reduces financial stress on families",stat:"Private sector layoff rate is 3x higher than public sector",byRace:{"All groups":"Stability benefit applies across all groups"},byGender:{"All groups":"Similar stability benefit"}},
+     legal:{headline:"Public sector workers have stronger union protections and whistleblower rights",stat:"PSLF (Public Service Loan Forgiveness) erases student loan debt after 10 years of public service",byRace:{"Black & Hispanic":"Disproportionately benefit from PSLF — higher loan burdens and public sector employment rates"},byGender:{"All groups":"Same PSLF eligibility"}},
+   },
+   beatsOdds:["PSLF (Public Service Loan Forgiveness) can erase $50K–$100K+ in student loans — most people never apply","Public sector pensions can be worth more than private sector salary differences over a lifetime","City and state government jobs are often easier to get than people assume — most require only a HS diploma or associate degree"],
+   resources:[{emoji:"🎓",label:"PSLF — Public Service Loan Forgiveness",url:"https://studentaid.gov/manage-loans/forgiveness-cancellation/public-service",desc:"Erase student loans after 10 years of public service"},{emoji:"🏛️",label:"USAJobs.gov — Federal Jobs",url:"https://www.usajobs.gov",desc:"Search all federal government job openings"}],
+   sources:["BLS 2023","OPM","Economic Policy Institute","Federal Student Aid"]},
+  {id:"employee_vs_self",category:"career",icon:"🤝",riskScore:65,title:"Employee vs. Self-Employed",tagline:"Freedom vs. security — the real numbers",titleEs:"Empleado vs. Trabajador Independiente",taglineEs:"Libertad vs. seguridad — los números reales",hasIntro:true,
+   introEn:{badge:"Career · Know the Basics",hook:"Most people assume one is the dream and the other is settling. The data tells a more complicated story.",quote:"Working for someone else isn't giving up — and working for yourself isn't automatically freedom. One gives you a safety net. The other gives you a ceiling with no floor. Before you decide which sounds better, let the numbers show you what each one actually looks like at 22, 25, and 30.",leftLabel:"Employee",rightLabel:"Self-employed",leftItems:["Steady paycheck","Benefits & insurance","Less financial risk","Less control"],rightItems:["You set your hours","No income guarantee","Higher earning ceiling","You carry the risk"],question:"80% of self-employed people say they'd never go back. But 45% struggle financially in year one. Both things are true. That's why the data matters."},
+   introEs:{badge:"Carrera · Conoce lo Básico",hook:"La mayoría asume que uno es el sueño y el otro es conformarse. Los datos cuentan una historia más complicada.",quote:"Trabajar para alguien más no es rendirse — y trabajar por tu cuenta no es automáticamente libertad. Uno te da una red de seguridad. El otro te da un techo sin piso. Antes de decidir cuál suena mejor, deja que los números te muestren cómo se ve cada uno realmente a los 22, 25 y 30 años.",leftLabel:"Empleado",rightLabel:"Independiente",leftItems:["Cheque estable","Beneficios y seguro","Menos riesgo financiero","Menos control"],rightItems:["Tú pones tus horas","Sin garantía de ingresos","Mayor techo de ganancias","Tú cargas el riesgo"],question:"El 80% de los trabajadores independientes dicen que nunca volverían atrás. Pero el 45% tiene dificultades financieras en el primer año. Ambas cosas son verdad. Por eso importan los datos."},
+   outcomes:{
+     financial:{headline:"Self-employed earn 40% less than employed peers in years 1–3 — then can surpass them",stat:"Median employee income $54K. Median self-employed year 1: $32K. Year 5: $61K",byRace:{"White":"21% of self-employed survive 5 years","Black":"16% 5-yr survival — capital access is the key barrier","Hispanic":"18% — fastest growing self-employment demographic","Asian":"22% — highest 5-yr survival rate","Indigenous":"14% — least access to startup capital","Multiracial / Other":"17%"},byGender:{"Man":"$41K self-employed median","Woman":"$34K — growing fastest of any group","Non-binary / Gender non-conforming":"~$31K — highest variability"}},
+     health:{headline:"Self-employed workers are 3x more likely to be uninsured",stat:"ACA marketplace plans avg $400+/month without employer contribution",byRace:{"All groups":"Uninsured risk similar — ACA subsidies help all groups equally"},byGender:{"All groups":"Similar uninsured risk — income level determines subsidy eligibility"}},
+     relationship:{headline:"62% of self-employed report relationships strained in first 3 years",stat:"Long hours + income instability = top two relationship stressors for founders",byRace:{"All groups":"Similar — financial stress is the universal driver"},byGender:{"Man":"64% report strain","Woman":"60%","Non-binary / Gender non-conforming":"~61%"}},
+     legal:{headline:"Self-employed must pay 15.3% self-employment tax — most first-timers don't know this",stat:"Accumulated IRS penalties for unfiled quarterly taxes average $3,400",byRace:{"All groups":"Same tax obligations — awareness varies"},byGender:{"All groups":"Same legal requirements"}},
+   },
+   beatsOdds:["Start self-employed on the side while employed — validate income before you leap","SBA (Small Business Administration) free mentorship dramatically increases survival rates","Quarterly tax filing keeps you legal — a $50/month accountant saves thousands"],
+   resources:[{emoji:"💼",label:"SBA — Small Business Administration",url:"https://www.sba.gov",desc:"Free loans, grants & business counseling"},{emoji:"🏥",label:"HealthCare.gov — Self-Employed Coverage",url:"https://www.healthcare.gov",desc:"Find affordable insurance as a self-employed worker"}],
+   sources:["SBA 2023","Kauffman Foundation","IRS","Freelancers Union"]},
   {id:"military",category:"career",icon:"🎖️",riskScore:45,title:"Military / Armed Forces",tagline:"Enlisting or commissioning into military service",titleEs:"Fuerzas Armadas / Militar",taglineEs:"Alistarse o comisionarse en el servicio militar",
    outcomes:{
      financial:{headline:"Free housing, healthcare + $25K–$50K starting pay",stat:"GI Bill covers 4-year tuition + $2,200/month housing",byRace:{"White":"Full benefits","Black":"Underrepresented in officer ranks","Hispanic":"Fastest-growing enlisted demographic","Asian":"High in technical roles","Indigenous":"Highest per-capita enlistment rate","Multiracial / Other":"Full benefits"},byGender:{"Man":"Full combat roles","Woman":"All roles open since 2016","Non-binary / Gender non-conforming":"Policy evolving"}},
@@ -1246,14 +1369,52 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
   const[cat,setCat]=useState("education");
   const[selected,setSelected]=useState(null);
   const[showDemo,setShowDemo]=useState(true);
+  const[showIntro,setShowIntro]=useState(false);
 
   if(selected){
     const sc=selected;
+    const isEs=lang==="es";
+    const intro=isEs?sc.introEs:sc.introEn;
     const{label,color,sentence}=getRiskLevel(sc.riskScore,lang);
     const isSaved=saved.includes(sc.id);
+
+    if(showIntro&&intro){
+      return(
+        <div style={{paddingBottom:80}}>
+          <button onClick={()=>{setSelected(null);setShowIntro(false);}} style={{background:"none",border:"none",color:C.accentLight,fontSize:15,cursor:"pointer",marginBottom:14,padding:"10px 0",minHeight:44}}>{tx(lang,"back")}</button>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:18,marginBottom:12,textAlign:"center"}}>
+            <div style={{fontSize:34,marginBottom:8}}>{sc.icon}</div>
+            <div style={{display:"inline-block",background:"rgba(124,58,237,0.3)",border:`1px solid ${C.accent}`,borderRadius:20,padding:"3px 12px",fontSize:11,color:C.muted,fontWeight:700,marginBottom:10}}>{intro.badge}</div>
+            <div style={{fontSize:16,fontWeight:800,color:"#e9d5ff",marginBottom:6,lineHeight:1.3}}>{isEs&&sc.titleEs?sc.titleEs:sc.title}</div>
+            <div style={{fontSize:12,color:C.muted,lineHeight:1.5}}>{intro.hook}</div>
+          </div>
+          <div style={{background:"#0d1a3a",border:"1px solid #1e3a5f",borderRadius:14,padding:16,marginBottom:12}}>
+            <div style={{fontSize:10,color:"#60a5fa",fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>{isEs?"Antes de ver los datos":"Before you see the data"}</div>
+            <div style={{fontSize:13,color:"#e2e8f0",lineHeight:1.7,fontStyle:"italic"}}>"{intro.quote}"</div>
+            <div style={{fontSize:11,color:"#374151",marginTop:8,textAlign:"right"}}>— Ms. Chavez, LifeLens</div>
+          </div>
+          {intro.exampleTag&&<div style={{display:"inline-block",background:"rgba(251,191,36,0.1)",border:"1px solid #854f0b",borderRadius:8,padding:"3px 10px",fontSize:11,color:"#fbbf24",fontWeight:700,marginBottom:8}}>{intro.exampleTag}</div>}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}}>
+            <div style={{background:"rgba(34,197,94,0.1)",border:"1px solid #166534",borderRadius:12,padding:12}}>
+              <div style={{fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:0.8,color:"#22c55e",marginBottom:8}}>{intro.leftLabel}</div>
+              {intro.leftItems.map((item,i)=><div key={i} style={{fontSize:11,color:C.muted,lineHeight:1.5,marginBottom:4}}>{item}</div>)}
+            </div>
+            <div style={{background:"rgba(124,58,237,0.1)",border:`1px solid ${C.accent}`,borderRadius:12,padding:12}}>
+              <div style={{fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:0.8,color:"#a78bfa",marginBottom:8}}>{intro.rightLabel}</div>
+              {intro.rightItems.map((item,i)=><div key={i} style={{fontSize:11,color:C.muted,lineHeight:1.5,marginBottom:4}}>{item}</div>)}
+            </div>
+          </div>
+          <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:14,marginBottom:16}}>
+            <div style={{fontSize:12,color:C.muted,fontStyle:"italic",lineHeight:1.6}}>"{intro.question}"</div>
+          </div>
+          <button onClick={()=>setShowIntro(false)} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px",color:"white",fontSize:15,fontWeight:700,cursor:"pointer",minHeight:52}}>{isEs?"Ver los Datos →":"Show Me the Data →"}</button>
+        </div>
+      );
+    }
+
     return(
       <div style={{paddingBottom:80}}>
-        <button onClick={()=>setSelected(null)} style={{background:"none",border:"none",color:C.accentLight,fontSize:15,cursor:"pointer",marginBottom:14,padding:"10px 0",minHeight:44}}>{tx(lang,"back")}</button>
+        <button onClick={()=>sc.hasIntro?setShowIntro(true):setSelected(null)} style={{background:"none",border:"none",color:C.accentLight,fontSize:15,cursor:"pointer",marginBottom:14,padding:"10px 0",minHeight:44}}>{tx(lang,"back")}</button>
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:18,marginBottom:12}}>
           <div style={{fontSize:32,marginBottom:4}}>{sc.icon}</div>
           <h2 style={{color:C.text,fontSize:20,fontWeight:800,margin:"0 0 4px"}}>{lang==="es"&&sc.titleEs?sc.titleEs:sc.title}</h2>
@@ -1332,30 +1493,39 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
       </div>
       <RiskLegend lang={lang}/>
       <div style={{display:"flex",flexDirection:"column",gap:10}}>
-        {SCENARIOS.filter(s=>s.category===cat).map(sc=>{
+        {SCENARIOS.filter(s=>s.category===cat).map((sc,idx,arr)=>{
           const{label,color}=getRiskLevel(sc.riskScore,lang);
           const isSaved=saved.includes(sc.id);
+          const isEs=lang==="es";
+          const prevSc=arr[idx-1];
+          const showBasicsLabel=cat==="career"&&sc.hasIntro&&(!prevSc||!prevSc.hasIntro);
+          const showPathLabel=cat==="career"&&!sc.hasIntro&&(idx===0||arr[idx-1]?.hasIntro);
           return(
-            <div key={sc.id} onClick={()=>setSelected(sc)} style={{background:C.card,border:`1px solid ${isSaved?color:C.border}`,borderRadius:16,padding:18,cursor:"pointer"}}>
-              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                <div style={{display:"flex",gap:12,alignItems:"center"}}>
-                  <span style={{fontSize:28}}>{sc.icon}</span>
-                  <div>
-                    <div style={{fontWeight:700,color:C.text,fontSize:15}}>{lang==="es"&&sc.titleEs?sc.titleEs:sc.title}</div>
-                    <div style={{color:C.muted,fontSize:12,marginTop:3}}>{lang==="es"&&sc.taglineEs?sc.taglineEs:sc.tagline}</div>
+            <div key={sc.id}>
+              {showBasicsLabel&&<div style={{fontSize:11,fontWeight:800,textTransform:"uppercase",letterSpacing:1,color:C.muted,marginBottom:6,paddingLeft:2}}>📚 {isEs?"Conoce lo Básico Primero":"Know the Basics First"}</div>}
+              {showPathLabel&&<><div style={{height:1,background:C.border,margin:"4px 0 12px"}}/><div style={{fontSize:11,fontWeight:800,textTransform:"uppercase",letterSpacing:1,color:C.muted,marginBottom:6,paddingLeft:2}}>🛤️ {isEs?"Elige Tu Camino":"Choose Your Path"}</div></>}
+              <div onClick={()=>{setSelected(sc);setShowIntro(!!sc.hasIntro);}} style={{background:C.card,border:`1px solid ${isSaved?color:C.border}`,borderRadius:16,padding:18,cursor:"pointer"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+                  <div style={{display:"flex",gap:12,alignItems:"flex-start"}}>
+                    <span style={{fontSize:28,flexShrink:0}}>{sc.icon}</span>
+                    <div>
+                      <div style={{fontWeight:700,color:C.text,fontSize:15}}>{isEs&&sc.titleEs?sc.titleEs:sc.title}</div>
+                      <div style={{color:C.muted,fontSize:12,marginTop:3}}>{isEs&&sc.taglineEs?sc.taglineEs:sc.tagline}</div>
+                      {sc.hasIntro&&<div style={{display:"inline-block",marginTop:5,background:"rgba(34,197,94,0.1)",border:"1px solid #166534",borderRadius:10,padding:"2px 8px",fontSize:10,color:"#22c55e",fontWeight:700}}>{isEs?"✦ Página de introducción":"✦ Intro page included"}</div>}
+                    </div>
+                  </div>
+                  <div style={{textAlign:"right",flexShrink:0,marginLeft:10}}>
+                    <div style={{fontSize:15,fontWeight:900,color}}>{label}</div>
+                    {isSaved&&<div style={{fontSize:10,color:"#22c55e",marginTop:2}}>✓ {isEs?"Guardado":"Saved"}</div>}
                   </div>
                 </div>
-                <div style={{textAlign:"right",flexShrink:0,marginLeft:10}}>
-                  <div style={{fontSize:15,fontWeight:900,color}}>{label}</div>
-                  {isSaved&&<div style={{fontSize:10,color:"#22c55e",marginTop:2}}>✓ Saved</div>}
+                <div style={{marginTop:12,height:4,background:C.deep,borderRadius:2}}>
+                  <div style={{height:"100%",width:`${sc.riskScore}%`,background:`linear-gradient(90deg,#22c55e,${color})`,borderRadius:2}}/>
                 </div>
-              </div>
-              <div style={{marginTop:12,height:4,background:C.deep,borderRadius:2}}>
-                <div style={{height:"100%",width:`${sc.riskScore}%`,background:`linear-gradient(90deg,#22c55e,${color})`,borderRadius:2}}/>
-              </div>
-              <div style={{marginTop:10,display:"flex",alignItems:"center"}}>
-                {OUTCOME_TYPES.map(t=><span key={t.id} style={{fontSize:14,opacity:0.5,marginRight:6}}>{t.icon}</span>)}
-                <span style={{marginLeft:"auto",fontSize:12,color:"#f0abfc",fontWeight:800,letterSpacing:"0.8px"}}>{tx(lang,"tapExplore")}</span>
+                <div style={{marginTop:10,display:"flex",alignItems:"center"}}>
+                  {OUTCOME_TYPES.map(t=><span key={t.id} style={{fontSize:14,opacity:0.5,marginRight:6}}>{t.icon}</span>)}
+                  <span style={{marginLeft:"auto",fontSize:12,color:"#f0abfc",fontWeight:800,letterSpacing:"0.8px"}}>{tx(lang,"tapExplore")}</span>
+                </div>
               </div>
             </div>
           );
@@ -1527,6 +1697,7 @@ export default function LifeLens(){
   const[tab,setTab]=useState("explorer");
   const[saved,setSaved]=useState([]);
   const[lang,setLang]=useState("en");
+  const[explorerKey,setExplorerKey]=useState(0);
 
   useEffect(()=>{
     try{const d=localStorage.getItem("lifelens_saved_v3");if(d)setSaved(JSON.parse(d));}catch{}
@@ -1564,7 +1735,7 @@ export default function LifeLens(){
     <div style={{background:C.bg,minHeight:"100%",color:C.text,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
       <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         {/* Logo — tapping goes home to Scenarios */}
-        <div onClick={()=>setTab("explorer")} style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer"}}>
+        <div onClick={()=>{setTab("explorer");setExplorerKey(k=>k+1);}} style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer"}}>
           <span style={{fontSize:20}}>🧭</span>
           <div>
             <div style={{fontWeight:900,fontSize:18,color:C.accentLight,lineHeight:1.1}}>LifeLens</div>
@@ -1586,7 +1757,7 @@ export default function LifeLens(){
         </span>
       </div>
       <div style={{maxWidth:600,margin:"0 auto",padding:"16px 14px"}}>
-        {tab==="explorer"&&<ScenarioExplorer profile={profile} saved={saved} onSave={handleSave} lang={lang}/>}
+        {tab==="explorer"&&<ScenarioExplorer key={explorerKey} profile={profile} saved={saved} onSave={handleSave} lang={lang}/>}
         {tab==="assessment"&&<PersonalAssessment profile={profile} lang={lang}/>}
         {tab==="journal"&&<JournalTab saved={saved} onUnsave={handleSave} lang={lang} profile={profile}/>}
         {tab==="lifemap"&&<LifeMapTab saved={saved} lang={lang}/>}
