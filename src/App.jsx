@@ -1,3 +1,4 @@
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useState, useEffect } from "react";
 
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────────
@@ -1772,6 +1773,7 @@ export default function LifeLens(){
         ))}
       </div>
       <style>{`html,body,#root{margin:0;padding:0;height:100%;}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}textarea:focus,input:focus{border-color:${C.accent}!important;outline:none;}@keyframes spin{to{transform:rotate(360deg)}}::-webkit-scrollbar{display:none;}`}</style>
+      <SpeedInsights />
     </div>
   );
 }
