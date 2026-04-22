@@ -38,6 +38,7 @@ const TX = {
     readyBtn:"I'm Ready — Show Me My Data →",
     stateStep:"What state do you live in?",
     stateResources:"📍 Resources in",
+    lightMode:"☀️ Light",darkMode:"🌙 Dark",
     teenHelpLabel:"Teen Help",
     youthJobsLabel:"Youth Jobs & Services",
     crisisHotlineLabel:"Crisis Hotline",
@@ -81,6 +82,7 @@ const TX = {
     readyBtn:"Estoy Listo/a — Muéstrame los Datos →",
     stateStep:"¿En qué estado vives?",
     stateResources:"📍 Recursos en",
+    lightMode:"☀️ Claro",darkMode:"🌙 Oscuro",
     teenHelpLabel:"Ayuda para Jóvenes",
     youthJobsLabel:"Empleos y Servicios Juveniles",
     crisisHotlineLabel:"Línea de Crisis",
@@ -189,21 +191,24 @@ const OUTCOME_TYPES=[
   {id:"legal",label:"Legal",labelEs:"Legal",icon:"⚖️",color:"#f59e0b"},
 ];
 
-// ── DEEP PURPLE PALETTE ───────────────────────────────────────────────────────
-const C={
-  bg:"#13072e",          // deep jewel background
-  card:"#1e1040",        // rich purple card surface
-  border:"#3d2070",      // purple border
-  text:"#ffffff",        // pure white — maximum readability
-  muted:"#c4b5fd",       // bright lavender — was dark, now fully legible
-  accent:"#7c3aed",      // vivid purple accent
-  accentLight:"#e9d5ff", // near-white lavender for headings
-  accentBright:"#f0abfc",// bright pink-purple for highlights
-  deep:"#0d0520",        // deepest background layer
+// ── PALETTES ─────────────────────────────────────────────────────────────────
+const DARK_C={
+  bg:"#13072e",card:"#1e1040",border:"#3d2070",text:"#ffffff",
+  muted:"#c4b5fd",accent:"#7c3aed",accentLight:"#e9d5ff",
+  accentBright:"#f0abfc",deep:"#0d0520",
 };
+const LIGHT_C={
+  bg:"#f5f3ff",card:"#ffffff",border:"#ddd6fe",text:"#1e1040",
+  muted:"#6d28d9",accent:"#7c3aed",accentLight:"#5b21b6",
+  accentBright:"#7c3aed",deep:"#ede9fe",
+};
+const getC=(dark)=>dark?DARK_C:LIGHT_C;
+const C=DARK_C;
 
 const LEGEND_EN=[["🟢","Chill","#22c55e"],["🟡","Risky","#f59e0b"],["🟠","Seriously Risky","#f97316"],["🔴","High Stakes","#ef4444"]];
 const LEGEND_ES=[["🟢","Tranquilo","#22c55e"],["🟡","Riesgoso","#f59e0b"],["🟠","Muy Riesgoso","#f97316"],["🔴","Alto Riesgo","#ef4444"]];
+const LEGEND_EN_LIGHT=[["🟢","Chill","#15803d"],["🟡","Risky","#d97706"],["🟠","Seriously Risky","#c2410c"],["🔴","High Stakes","#b91c1c"]];
+const LEGEND_ES_LIGHT=[["🟢","Tranquilo","#15803d"],["🟡","Riesgoso","#d97706"],["🟠","Muy Riesgoso","#c2410c"],["🔴","Alto Riesgo","#b91c1c"]];
 
 // ── SHADOW PROFILES ───────────────────────────────────────────────────────────
 const SHADOW_PROFILES=[
@@ -906,16 +911,21 @@ const ASSESSMENT_QUESTIONS=[
 ];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function getRiskLevel(s,lang="en"){
+function getRiskLevel(s,lang="en",dark=true){
   const isEs=lang==="es";
-  if(s<35)return{label:isEs?"🟢 Tranquilo":"🟢 Chill",color:"#22c55e",sentence:isEs?"La mayoría de las personas en este camino navegan bien. Los desafíos existen pero son muy manejables.":"Most people who take this path report solid outcomes — challenges exist but are very manageable."};
-  if(s<55)return{label:isEs?"🟡 Riesgoso":"🟡 Risky",color:"#f59e0b",sentence:isEs?"Este camino tiene desafíos reales, pero la mayoría los supera con la preparación adecuada.":"This path has real challenges, but most people navigate them successfully with the right preparation."};
-  if(s<70)return{label:isEs?"🟠 Muy Riesgoso":"🟠 Seriously Risky",color:"#f97316",sentence:isEs?"Los desafíos serios afectan a la mayoría. Ir preparado marca una gran diferencia.":"Serious challenges affect most people who choose this — going in prepared makes a huge difference."};
-  return{label:isEs?"🔴 Alto Riesgo":"🔴 High Stakes",color:"#ef4444",sentence:isEs?"La mayoría enfrenta contratiempos importantes. Conocer los riesgos es tu mayor ventaja.":"Most people who go this route face major setbacks. Knowing the risks upfront is your biggest advantage."};
+  const g=dark?"#22c55e":"#15803d";
+  const y=dark?"#f59e0b":"#d97706";
+  const o=dark?"#f97316":"#c2410c";
+  const r=dark?"#ef4444":"#b91c1c";
+  if(s<35)return{label:isEs?"🟢 Tranquilo":"🟢 Chill",color:g,sentence:isEs?"La mayoría de las personas en este camino navegan bien. Los desafíos existen pero son muy manejables.":"Most people who take this path report solid outcomes — challenges exist but are very manageable."};
+  if(s<55)return{label:isEs?"🟡 Riesgoso":"🟡 Risky",color:y,sentence:isEs?"Este camino tiene desafíos reales, pero la mayoría los supera con la preparación adecuada.":"This path has real challenges, but most people navigate them successfully with the right preparation."};
+  if(s<70)return{label:isEs?"🟠 Muy Riesgoso":"🟠 Seriously Risky",color:o,sentence:isEs?"Los desafíos serios afectan a la mayoría. Ir preparado marca una gran diferencia.":"Serious challenges affect most people who choose this — going in prepared makes a huge difference."};
+  return{label:isEs?"🔴 Alto Riesgo":"🔴 High Stakes",color:r,sentence:isEs?"La mayoría enfrenta contratiempos importantes. Conocer los riesgos es tu mayor ventaja.":"Most people who go this route face major setbacks. Knowing the risks upfront is your biggest advantage."};
 }
 
 // ── WELCOME BRIDGE ────────────────────────────────────────────────────────────
-function WelcomeBridge({onReady,lang="en"}){
+function WelcomeBridge({onReady,lang="en",darkMode=true}){
+  const C=getC(darkMode);
   const isEs=lang==="es";
   const legend=isEs?LEGEND_ES:LEGEND_EN;
   const descs_en=["Most people on this path navigate it well. Challenges exist but are very manageable with basic preparation.","Real challenges ahead. Most people get through — but going in eyes-open makes a significant difference.","This path hits most people hard in at least one area. Preparation isn't optional here — it's essential.","The majority of people who take this route face major setbacks. Knowing this upfront is your biggest advantage."];
@@ -929,20 +939,20 @@ function WelcomeBridge({onReady,lang="en"}){
       </div>
       <div style={{background:"linear-gradient(135deg,#1a0a3d,#1e1040)",border:`1px solid ${C.border}`,borderRadius:16,padding:20,marginBottom:20}}>
         <div style={{fontSize:11,color:C.accentBright,fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:12}}>{isEs?"Una nota de Ms. Chavez":"A note from Ms. Chavez"}</div>
-        <p style={{fontSize:14,color:"#ede9fe",lineHeight:1.8,margin:"0 0 12px",fontStyle:"italic"}}>{isEs?"Construí LifeLens porque pasé 25 años viendo a jóvenes brillantes tomar decisiones de vida sin tener la información completa. No por falta de inteligencia — sino porque nadie se sentó con ellos y les mostró el panorama real antes de que fuera demasiado tarde.":"I built LifeLens because I spent 25 years watching brilliant teenagers make life-changing decisions in the dark. Not for lack of intelligence — but because nobody sat them down and showed them the full picture before it was too late."}</p>
+        <p style={{fontSize:14,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.8,margin:"0 0 12px",fontStyle:"italic"}}>{isEs?"Construí LifeLens porque pasé 25 años viendo a jóvenes brillantes tomar decisiones de vida sin tener la información completa. No por falta de inteligencia — sino porque nadie se sentó con ellos y les mostró el panorama real antes de que fuera demasiado tarde.":"I built LifeLens because I spent 25 years watching brilliant teenagers make life-changing decisions in the dark. Not for lack of intelligence — but because nobody sat them down and showed them the full picture before it was too late."}</p>
         <p style={{fontSize:14,color:C.accentLight,lineHeight:1.8,margin:0,fontWeight:600}}>{isEs?"Esto es eso. La imagen completa. Para ti.":"This is that. The full picture. For you."}</p>
         <div style={{fontSize:12,color:C.muted,marginTop:14,textAlign:"right"}}>— Ms. Chavez, LifeLens</div>
       </div>
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:16}}>
         <div style={{fontSize:13,fontWeight:800,color:C.accentLight,marginBottom:12}}>📊 {isEs?"¿De dónde vienen estos datos?":"Where does this data come from?"}</div>
-        <p style={{fontSize:13,color:"#ede9fe",lineHeight:1.75,margin:"0 0 10px"}}>{isEs?"Fuentes reales. La Oficina de Estadísticas Laborales de EE.UU. (BLS), los Centros para el Control de Enfermedades (CDC), la Oficina del Censo, y estudios universitarios revisados por pares. No opiniones — evidencia.":"Real sources. The US Bureau of Labor Statistics (BLS — the government agency that tracks employment and wages), the CDC (Centers for Disease Control — which tracks health outcomes), the US Census Bureau, and peer-reviewed university studies. Not opinions — evidence."}</p>
+        <p style={{fontSize:13,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.75,margin:"0 0 10px"}}>{isEs?"Fuentes reales. La Oficina de Estadísticas Laborales de EE.UU. (BLS), los Centros para el Control de Enfermedades (CDC), la Oficina del Censo, y estudios universitarios revisados por pares. No opiniones — evidencia.":"Real sources. The US Bureau of Labor Statistics (BLS — the government agency that tracks employment and wages), the CDC (Centers for Disease Control — which tracks health outcomes), the US Census Bureau, and peer-reviewed university studies. Not opinions — evidence."}</p>
         <div style={{background:C.deep,borderRadius:10,padding:"12px 14px",borderLeft:`3px solid ${C.accent}`,marginBottom:8}}>
           <div style={{fontSize:13,color:C.accentLight,fontWeight:700,marginBottom:4}}>{isEs?"Lo que los datos HACEN:":"What the data DOES:"}</div>
-          <div style={{fontSize:13,color:"#e9d5ff",lineHeight:1.7}}>{isEs?"Muestra lo que le sucede a la MAYORÍA de las personas en situaciones similares. Es tu punto de partida — no tu destino.":"Shows what happens to MOST people in similar situations. It is your starting point — not your destination."}</div>
+          <div style={{fontSize:13,color:darkMode?"#e9d5ff":"#6d28d9",lineHeight:1.7}}>{isEs?"Muestra lo que le sucede a la MAYORÍA de las personas en situaciones similares. Es tu punto de partida — no tu destino.":"Shows what happens to MOST people in similar situations. It is your starting point — not your destination."}</div>
         </div>
         <div style={{background:C.deep,borderRadius:10,padding:"12px 14px",borderLeft:"3px solid #22c55e"}}>
           <div style={{fontSize:13,color:"#22c55e",fontWeight:700,marginBottom:4}}>{isEs?"Lo que los datos NO HACEN:":"What the data DOES NOT do:"}</div>
-          <div style={{fontSize:13,color:"#e9d5ff",lineHeight:1.7}}>{isEs?"Predecir TU historia. Tú no eres una estadística. Pero conocer las estadísticas significa que puedes superarlas.":"Predict YOUR story. You are not a statistic. But knowing the statistics means you can beat them."}</div>
+          <div style={{fontSize:13,color:darkMode?"#e9d5ff":"#6d28d9",lineHeight:1.7}}>{isEs?"Predecir TU historia. Tú no eres una estadística. Pero conocer las estadísticas significa que puedes superarlas.":"Predict YOUR story. You are not a statistic. But knowing the statistics means you can beat them."}</div>
         </div>
       </div>
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:16}}>
@@ -959,11 +969,11 @@ function WelcomeBridge({onReady,lang="en"}){
       </div>
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:16}}>
         <div style={{fontSize:13,fontWeight:800,color:C.accentLight,marginBottom:10}}>👁️ {isEs?'El botón "Demo"':'The "Demo" button'}</div>
-        <p style={{fontSize:13,color:"#ede9fe",lineHeight:1.75,margin:0}}>{isEs?'Dentro de cada escenario, encontrarás un botón "Demo: Activado". Cuando está activado, verás tu estadística personalizada Y cómo la misma decisión afecta a diferentes grupos raciales.':'Inside every scenario, you\'ll find a "Demo: On" button. When it\'s on, you\'ll see your personalized stat AND how the same decision affects different racial groups side by side. This is not about comparing yourself to others — it\'s about understanding the real world you are navigating.'}</p>
+        <p style={{fontSize:13,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.75,margin:0}}>{isEs?'Dentro de cada escenario, encontrarás un botón "Demo: Activado". Cuando está activado, verás tu estadística personalizada Y cómo la misma decisión afecta a diferentes grupos raciales.':'Inside every scenario, you\'ll find a "Demo: On" button. When it\'s on, you\'ll see your personalized stat AND how the same decision affects different racial groups side by side. This is not about comparing yourself to others — it\'s about understanding the real world you are navigating.'}</p>
       </div>
       <div style={{background:"linear-gradient(135deg,#1a0a3d,#1e1040)",border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:28}}>
         <div style={{fontSize:13,fontWeight:800,color:C.accentBright,marginBottom:12}}>⚡ {isEs?"Una promesa":"A promise"}</div>
-        <p style={{fontSize:14,color:"#ede9fe",lineHeight:1.8,margin:"0 0 10px"}}>{isEs?'Al final de cada página de datos, encontrarás una sección llamada «Caminos que Superan las Probabilidades».':'At the end of every single data page, you will find a section called "Paths That Beat the Odds."'}</p>
+        <p style={{fontSize:14,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.8,margin:"0 0 10px"}}>{isEs?'Al final de cada página de datos, encontrarás una sección llamada «Caminos que Superan las Probabilidades».':'At the end of every single data page, you will find a section called "Paths That Beat the Odds."'}</p>
         <p style={{fontSize:14,color:C.accentLight,lineHeight:1.8,margin:0,fontWeight:600}}>{isEs?"Los datos nunca son la última palabra. Siempre hay un camino a seguir. Siempre.":"The data is never the last word. There is always a path forward. Always."}</p>
       </div>
       <button onClick={onReady} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:16,padding:"18px",color:"white",fontSize:16,fontWeight:800,cursor:"pointer",minHeight:58,letterSpacing:0.3,boxShadow:"0 4px 24px rgba(124,58,237,0.45)"}}>
@@ -975,8 +985,9 @@ function WelcomeBridge({onReady,lang="en"}){
 }
 
 // ── RISK LEGEND ───────────────────────────────────────────────────────────────
-function RiskLegend({compact=false,lang="en"}){
-  const legend=lang==="es"?LEGEND_ES:LEGEND_EN;
+function RiskLegend({compact=false,lang="en",darkMode=true}){
+  const C=getC(darkMode);
+  const legend=darkMode?(lang==="es"?LEGEND_ES:LEGEND_EN):(lang==="es"?LEGEND_ES_LIGHT:LEGEND_EN_LIGHT);
   return(
     <div style={{display:"flex",gap:6,flexWrap:"wrap",padding:compact?"8px 12px":"10px 14px",background:C.card,borderRadius:12,border:`1px solid ${C.border}`,marginBottom:14}}>
       <span style={{fontSize:12,color:C.muted,width:"100%",marginBottom:3,fontWeight:600}}>{tx(lang,"riskScale")}</span>
@@ -986,7 +997,8 @@ function RiskLegend({compact=false,lang="en"}){
 }
 
 // ── OUTCOME BLOCK (with Compare Groups) ──────────────────────────────────────
-function OutcomeBlock({typeId,outcome,profile,showDemo,lang="en"}){
+function OutcomeBlock({typeId,outcome,profile,showDemo,lang="en",darkMode=true}){
+  const C=getC(darkMode);
   const t=OUTCOME_TYPES.find(x=>x.id===typeId);
   if(!outcome)return null;
   const rV=outcome.byRace?.[profile.race]||outcome.byRace?.["All groups"];
@@ -1027,7 +1039,8 @@ function OutcomeBlock({typeId,outcome,profile,showDemo,lang="en"}){
 }
 
 // ── SHADOW SELF ───────────────────────────────────────────────────────────────
-function ShadowSelf({lang="en",profile=null}){
+function ShadowSelf({lang="en",profile=null,darkMode=true}){
+  const C=getC(darkMode);
   // Smart matching: find best match by race AND gender, fallback to race only, then index 0
   const getStartIdx=()=>{
     if(!profile)return 0;
@@ -1048,7 +1061,7 @@ function ShadowSelf({lang="en",profile=null}){
       {/* Shadow Self intro explanation */}
       <div style={{background:"linear-gradient(135deg,#1a0a3d,#1e1040)",border:`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:14}}>
         <div style={{fontSize:13,fontWeight:800,color:C.accentBright,marginBottom:6}}>👤 {isEs?"¿Qué es una Sombra?":"What is a Shadow Self?"}</div>
-        <div style={{fontSize:13,color:"#ede9fe",lineHeight:1.7}}>{isEs?"Una Sombra es un perfil real de un joven como tú, enfrentando una decisión de vida real. Muestra el mejor y el peor resultado posible — para que puedas ver el panorama completo antes de decidir.":"A Shadow Self is a real profile of a young person like you, facing a real life decision. It shows the best and worst case outcome — so you can see the full picture before you choose."}</div>
+        <div style={{fontSize:13,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.7}}>{isEs?"Una Sombra es un perfil real de un joven como tú, enfrentando una decisión de vida real. Muestra el mejor y el peor resultado posible — para que puedas ver el panorama completo antes de decidir.":"A Shadow Self is a real profile of a young person like you, facing a real life decision. It shows the best and worst case outcome — so you can see the full picture before you choose."}</div>
         {isMatched&&<div style={{marginTop:10,padding:"7px 10px",background:"rgba(124,58,237,0.2)",borderRadius:8,fontSize:12,color:C.accentLight,fontWeight:600}}>✨ {isEs?"El primer perfil coincide con tu raza y género.":"The first profile matches your race and gender."}</div>}
       </div>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
@@ -1070,7 +1083,7 @@ function ShadowSelf({lang="en",profile=null}){
             <div style={{fontSize:12,color:C.accentBright,marginTop:2}}>{isEs?getRaceEs(p.race):p.race} · {isEs?getGenderEs(p.gender):p.gender} · {isEs?getSocioEs(p.socio):p.socio} · {isEs?getRegionEs(p.region):p.region}</div>
           </div>
         </div>
-        <div style={{fontSize:13,color:"#ede9fe",lineHeight:1.6,background:"rgba(0,0,0,0.25)",borderRadius:10,padding:"10px 12px"}}>
+        <div style={{fontSize:13,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.6,background:"rgba(0,0,0,0.25)",borderRadius:10,padding:"10px 12px"}}>
           <span style={{fontWeight:700,color:C.accentLight}}>{tx(lang,"decisionFacing")} </span>{isEs&&SHADOW_TRANSLATIONS[p.name]?SHADOW_TRANSLATIONS[p.name].decision:p.decision}<br/>
           <span style={{color:C.muted,fontSize:12,marginTop:4,display:"block"}}>{isEs&&SHADOW_TRANSLATIONS[p.name]?SHADOW_TRANSLATIONS[p.name].context:p.context}</span>
         </div>
@@ -1106,7 +1119,8 @@ function ShadowSelf({lang="en",profile=null}){
 }
 
 // ── WRITE YOUR STORY ──────────────────────────────────────────────────────────
-function WriteYourStory({profile,lang="en"}){
+function WriteYourStory({profile,lang="en",darkMode=true}){
+  const C=getC(darkMode);
   const[story,setStory]=useState("");
   const[name,setName]=useState("");
   const[result,setResult]=useState(null);
@@ -1207,7 +1221,7 @@ Their story: ${story}`;
           <div style={{fontSize:13,fontWeight:700,color:C.accentLight,marginBottom:8}}>🗺️ {isEs?"Construye tu Hoja de Ruta":"Build Your Roadmap"}</div>
           <div style={{fontSize:13,color:C.muted,lineHeight:1.7}}>{isEs?"Explora los escenarios en la pestaña Escenarios, guarda los que se apliquen a ti, y tu Mapa de Vida los reunirá todos en tu hoja de ruta personal.":"Explore the scenarios in the Scenarios tab, save the ones that apply to you, and your Life Map will bring them all together into your personal roadmap."}</div>
         </div>
-        <button onClick={()=>{setResult(null);setStory("");setName("");}} style={{width:"100%",background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:"14px",color:"#ddd6fe",fontSize:14,cursor:"pointer",minHeight:50}}>{tx(lang,"tryAgain")}</button>
+        <button onClick={()=>{setResult(null);setStory("");setName("");}} style={{width:"100%",background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:"14px",color:darkMode?"#ddd6fe":"#5b21b6",fontSize:14,cursor:"pointer",minHeight:50}}>{tx(lang,"tryAgain")}</button>
       </div>
     );
   }
@@ -1217,7 +1231,7 @@ Their story: ${story}`;
       <div style={{background:"linear-gradient(135deg,#1a0a3d,#1e1040)",border:`1px solid ${C.border}`,borderRadius:16,padding:20,marginBottom:16}}>
         <div style={{fontSize:36,textAlign:"center",marginBottom:12}}>🪞</div>
         <div style={{fontSize:16,fontWeight:800,color:C.accentLight,marginBottom:10,textAlign:"center"}}>{tx(lang,"writeStoryTitle")}</div>
-        <p style={{fontSize:13,color:"#ede9fe",lineHeight:1.8,margin:"0 0 12px",fontStyle:"italic"}}>{isEs?"Los datos generales son un punto de partida. Pero tu situación es única. Cuéntame lo que está pasando realmente en tu vida, y LifeLens creará una Sombra diseñada específicamente para ti.":"General data is a starting point. But your situation is unique. Tell me what's really going on in your life, and LifeLens will create a Shadow Self designed specifically for you — with best and worst outcomes based on your actual story."}</p>
+        <p style={{fontSize:13,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.8,margin:"0 0 12px",fontStyle:"italic"}}>{isEs?"Los datos generales son un punto de partida. Pero tu situación es única. Cuéntame lo que está pasando realmente en tu vida, y LifeLens creará una Sombra diseñada específicamente para ti.":"General data is a starting point. But your situation is unique. Tell me what's really going on in your life, and LifeLens will create a Shadow Self designed specifically for you — with best and worst outcomes based on your actual story."}</p>
         <p style={{fontSize:13,color:C.accentLight,lineHeight:1.8,margin:0,fontWeight:600}}>{isEs?"No hay respuestas incorrectas. Solo la tuya.":"There are no wrong answers. Only yours."}</p>
       </div>
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:16}}>
@@ -1252,11 +1266,12 @@ Their story: ${story}`;
 }
 
 // ── JOURNAL TAB ───────────────────────────────────────────────────────────────
-function JournalTab({saved,onUnsave,lang="en",profile=null}){
+function JournalTab({saved,onUnsave,lang="en",profile=null,darkMode=true}){
+  const C=getC(darkMode);
   const savedScenarios=SCENARIOS.filter(s=>saved.includes(s.id));
   return(
     <div style={{paddingBottom:80}}>
-      <ShadowSelf lang={lang} profile={profile}/>
+      <ShadowSelf lang={lang} profile={profile} darkMode={darkMode}/>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
         <div style={{fontSize:15,fontWeight:800,color:C.accentLight}}>{tx(lang,"savedDecisions")}</div>
         <span style={{fontSize:12,color:C.muted}}>{savedScenarios.length} saved</span>
@@ -1264,10 +1279,10 @@ function JournalTab({saved,onUnsave,lang="en",profile=null}){
       {savedScenarios.length===0
         ?<div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:24,textAlign:"center"}}>
           <div style={{fontSize:36,marginBottom:10}}>📭</div>
-          <div style={{color:"#ddd6fe",fontSize:14,lineHeight:1.6}}>{tx(lang,"noSaved")}<br/>{tx(lang,"tapSave")}</div>
+          <div style={{color:darkMode?"#ddd6fe":"#5b21b6",fontSize:14,lineHeight:1.6}}>{tx(lang,"noSaved")}<br/>{tx(lang,"tapSave")}</div>
         </div>
         :savedScenarios.map(sc=>{
-          const{label,color}=getRiskLevel(sc.riskScore,lang);
+          const{label,color}=getRiskLevel(sc.riskScore,lang,darkMode);
           return(
             <div key={sc.id} style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:10}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
@@ -1292,8 +1307,10 @@ function JournalTab({saved,onUnsave,lang="en",profile=null}){
 }
 
 // ── LIFE MAP TAB ──────────────────────────────────────────────────────────────
-function LifeMapTab({saved,lang="en"}){
+function LifeMapTab({saved,lang="en",onGoToScenario,darkMode=true}){
+  const C=getC(darkMode);
   const savedSet=new Set(saved);
+  const isEs=lang==="es";
   return(
     <div style={{paddingBottom:80}}>
       <div style={{marginBottom:16}}>
@@ -1303,27 +1320,28 @@ function LifeMapTab({saved,lang="en"}){
       {saved.length===0&&(
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:24,textAlign:"center",marginBottom:16}}>
           <div style={{fontSize:36,marginBottom:10}}>🗺️</div>
-          <div style={{color:"#ddd6fe",fontSize:14,lineHeight:1.6}}>{lang==="es"?"Tu Mapa de Vida está vacío.":"Your Life Map is empty."}<br/>{lang==="es"?<span>Guarda escenarios en la pestaña <strong style={{color:C.accentLight}}>Escenarios</strong> para construir tu hoja de ruta personal.</span>:<span>Save scenarios in the <strong style={{color:C.accentLight}}>Scenarios</strong> tab to build your personal roadmap.</span>}</div>
+          <div style={{color:darkMode?"#ddd6fe":"#5b21b6",fontSize:14,lineHeight:1.6}}>{isEs?"Tu Mapa de Vida está vacío.":"Your Life Map is empty."}<br/>{isEs?<span>Guarda escenarios en la pestaña <strong style={{color:C.accentLight}}>Escenarios</strong> para construir tu hoja de ruta personal.</span>:<span>Save scenarios in the <strong style={{color:C.accentLight}}>Scenarios</strong> tab to build your personal roadmap.</span>}</div>
         </div>
       )}
-      <RiskLegend lang={lang}/>
+      {saved.length===0&&<div style={{background:"rgba(124,58,237,0.1)",border:`1px solid ${C.border}`,borderRadius:12,padding:"10px 14px",marginBottom:14,fontSize:12,color:C.muted,textAlign:"center"}}>{isEs?"💡 Toca cualquier escenario para explorar y guardar":"💡 Tap any scenario below to explore and save it"}</div>}
+      <RiskLegend lang={lang} darkMode={darkMode}/>
       {CATEGORIES.map(cat=>{
         const catScenarios=SCENARIOS.filter(s=>s.category===cat.id);
         return(
           <div key={cat.id} style={{marginBottom:20}}>
-            <div style={{fontSize:13,fontWeight:700,color:C.muted,marginBottom:8,textTransform:"uppercase",letterSpacing:1}}>{cat.icon} {lang==="es"?cat.labelEs:cat.label}</div>
+            <div style={{fontSize:13,fontWeight:700,color:C.muted,marginBottom:8,textTransform:"uppercase",letterSpacing:1}}>{cat.icon} {isEs?cat.labelEs:cat.label}</div>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
               {catScenarios.map(sc=>{
                 const isSaved=savedSet.has(sc.id);
-                const{label,color}=getRiskLevel(sc.riskScore,lang);
+                const{label,color}=getRiskLevel(sc.riskScore,lang,darkMode);
                 return(
-                  <div key={sc.id} style={{background:isSaved?C.card:C.deep,border:`1px solid ${isSaved?color:C.border}`,borderRadius:12,padding:12,opacity:isSaved?1:0.4,transition:"all 0.2s"}}>
+                  <div key={sc.id} onClick={()=>onGoToScenario(sc)} style={{background:isSaved?C.card:C.deep,border:`1px solid ${isSaved?color:C.border}`,borderRadius:12,padding:12,opacity:isSaved?1:0.55,transition:"all 0.2s",cursor:"pointer"}}>
                     <div style={{fontSize:22,marginBottom:4}}>{sc.icon}</div>
-                    <div style={{fontSize:12,fontWeight:700,color:isSaved?C.text:C.muted,lineHeight:1.3,marginBottom:6}}>{lang==="es"&&sc.titleEs?sc.titleEs:sc.title}</div>
+                    <div style={{fontSize:12,fontWeight:700,color:isSaved?C.text:C.muted,lineHeight:1.3,marginBottom:6}}>{isEs&&sc.titleEs?sc.titleEs:sc.title}</div>
                     <div style={{height:3,background:C.deep,borderRadius:2,marginBottom:5}}>
                       <div style={{height:"100%",width:isSaved?`${sc.riskScore}%`:"0%",background:`linear-gradient(90deg,#22c55e,${color})`,borderRadius:2,transition:"width 0.5s"}}/>
                     </div>
-                    <div style={{fontSize:10,color:isSaved?color:C.muted,fontWeight:700}}>{isSaved?label:tx(lang,"notExplored")}</div>
+                    <div style={{fontSize:10,color:isSaved?color:C.accent,fontWeight:700}}>{isSaved?label:isEs?"Toca para explorar →":"Tap to explore →"}</div>
                   </div>
                 );
               })}
@@ -1334,7 +1352,7 @@ function LifeMapTab({saved,lang="en"}){
       {saved.length>0&&(()=>{
         const savedScenarios=SCENARIOS.filter(s=>savedSet.has(s.id));
         const avg=Math.round(savedScenarios.reduce((a,b)=>a+b.riskScore,0)/savedScenarios.length);
-        const{label,color}=getRiskLevel(avg,lang);
+        const{label,color}=getRiskLevel(avg,lang,darkMode);
         const highest=savedScenarios.reduce((a,b)=>a.riskScore>b.riskScore?a:b);
         const lowest=savedScenarios.reduce((a,b)=>a.riskScore<b.riskScore?a:b);
         return(
@@ -1365,17 +1383,22 @@ function LifeMapTab({saved,lang="en"}){
 }
 
 // ── SCENARIO EXPLORER ─────────────────────────────────────────────────────────
-function ScenarioExplorer({profile,saved,onSave,lang="en"}){
-  const[cat,setCat]=useState("education");
-  const[selected,setSelected]=useState(null);
+function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialScenario=null,onScenarioLoaded}){
+  const C=getC(darkMode);
+  const[cat,setCat]=useState(initialScenario?.category||"education");
+  const[selected,setSelected]=useState(initialScenario||null);
   const[showDemo,setShowDemo]=useState(true);
-  const[showIntro,setShowIntro]=useState(false);
+  const[showIntro,setShowIntro]=useState(initialScenario?.hasIntro||false);
+
+  useEffect(()=>{
+    if(initialScenario&&onScenarioLoaded) onScenarioLoaded();
+  },[]);
 
   if(selected){
     const sc=selected;
     const isEs=lang==="es";
     const intro=isEs?sc.introEs:sc.introEn;
-    const{label,color,sentence}=getRiskLevel(sc.riskScore,lang);
+    const{label,color,sentence}=getRiskLevel(sc.riskScore,lang,darkMode);
     const isSaved=saved.includes(sc.id);
 
     if(showIntro&&intro){
@@ -1385,7 +1408,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:18,marginBottom:12,textAlign:"center"}}>
             <div style={{fontSize:34,marginBottom:8}}>{sc.icon}</div>
             <div style={{display:"inline-block",background:"rgba(124,58,237,0.3)",border:`1px solid ${C.accent}`,borderRadius:20,padding:"3px 12px",fontSize:11,color:C.muted,fontWeight:700,marginBottom:10}}>{intro.badge}</div>
-            <div style={{fontSize:16,fontWeight:800,color:"#e9d5ff",marginBottom:6,lineHeight:1.3}}>{isEs&&sc.titleEs?sc.titleEs:sc.title}</div>
+            <div style={{fontSize:16,fontWeight:800,color:darkMode?"#e9d5ff":"#6d28d9",marginBottom:6,lineHeight:1.3}}>{isEs&&sc.titleEs?sc.titleEs:sc.title}</div>
             <div style={{fontSize:12,color:C.muted,lineHeight:1.5}}>{intro.hook}</div>
           </div>
           <div style={{background:"#0d1a3a",border:"1px solid #1e3a5f",borderRadius:14,padding:16,marginBottom:12}}>
@@ -1400,7 +1423,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
               {intro.leftItems.map((item,i)=><div key={i} style={{fontSize:11,color:C.muted,lineHeight:1.5,marginBottom:4}}>{item}</div>)}
             </div>
             <div style={{background:"rgba(124,58,237,0.1)",border:`1px solid ${C.accent}`,borderRadius:12,padding:12}}>
-              <div style={{fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:0.8,color:"#a78bfa",marginBottom:8}}>{intro.rightLabel}</div>
+              <div style={{fontSize:10,fontWeight:800,textTransform:"uppercase",letterSpacing:0.8,color:darkMode?"#a78bfa":"#5b21b6",marginBottom:8}}>{intro.rightLabel}</div>
               {intro.rightItems.map((item,i)=><div key={i} style={{fontSize:11,color:C.muted,lineHeight:1.5,marginBottom:4}}>{item}</div>)}
             </div>
           </div>
@@ -1424,7 +1447,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
             <div style={{height:"100%",width:`${sc.riskScore}%`,background:`linear-gradient(90deg,#22c55e,${color})`,borderRadius:3}}/>
           </div>
           <div style={{fontSize:13,color:C.muted,lineHeight:1.5,fontStyle:"italic",marginBottom:12}}>{sentence}</div>
-          <RiskLegend compact lang={lang}/>
+          <RiskLegend compact lang={lang} darkMode={darkMode}/>
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             <button onClick={()=>onSave(sc.id)} style={{background:isSaved?"rgba(34,197,94,0.15)":C.accent,border:`1px solid ${isSaved?"#22c55e":C.accent}`,borderRadius:10,padding:"8px 16px",color:isSaved?"#22c55e":"white",fontSize:13,fontWeight:700,cursor:"pointer",minHeight:40}}>
               {isSaved?tx(lang,"savedToJournal"):tx(lang,"saveToJournal")}
@@ -1435,14 +1458,14 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
           </div>
         </div>
         {OUTCOME_TYPES.map(t=>(
-          <OutcomeBlock key={t.id} typeId={t.id} outcome={sc.outcomes[t.id]} profile={profile} showDemo={showDemo} lang={lang}/>
+          <OutcomeBlock key={t.id} typeId={t.id} outcome={sc.outcomes[t.id]} profile={profile} showDemo={showDemo} lang={lang} darkMode={darkMode}/>
         ))}
         <div style={{background:"linear-gradient(135deg,#1a0a3d,#1e1040)",border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:12}}>
           <div style={{fontSize:15,fontWeight:700,color:C.accentBright,marginBottom:12}}>{tx(lang,"pathsBeatOdds")}</div>
           {sc.beatsOdds.map((tip,i)=>(
             <div key={i} style={{display:"flex",gap:10,marginBottom:10}}>
               <span style={{color:"#22c55e",flexShrink:0,fontSize:16}}>✓</span>
-              <span style={{color:"#ede9fe",fontSize:14,lineHeight:1.5}}>{tip}</span>
+              <span style={{color:darkMode?"#ede9fe":"#1e1040",fontSize:14,lineHeight:1.5}}>{tip}</span>
             </div>
           ))}
         </div>
@@ -1491,10 +1514,10 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
           </button>
         ))}
       </div>
-      <RiskLegend lang={lang}/>
+      <RiskLegend lang={lang} darkMode={darkMode}/>
       <div style={{display:"flex",flexDirection:"column",gap:10}}>
         {SCENARIOS.filter(s=>s.category===cat).map((sc,idx,arr)=>{
-          const{label,color}=getRiskLevel(sc.riskScore,lang);
+          const{label,color}=getRiskLevel(sc.riskScore,lang,darkMode);
           const isSaved=saved.includes(sc.id);
           const isEs=lang==="es";
           const prevSc=arr[idx-1];
@@ -1524,7 +1547,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
                 </div>
                 <div style={{marginTop:10,display:"flex",alignItems:"center"}}>
                   {OUTCOME_TYPES.map(t=><span key={t.id} style={{fontSize:14,opacity:0.5,marginRight:6}}>{t.icon}</span>)}
-                  <span style={{marginLeft:"auto",fontSize:12,color:"#f0abfc",fontWeight:800,letterSpacing:"0.8px"}}>{tx(lang,"tapExplore")}</span>
+                  <span style={{marginLeft:"auto",fontSize:12,color:darkMode?"#f0abfc":"#7c3aed",fontWeight:800,letterSpacing:"0.8px"}}>{tx(lang,"tapExplore")}</span>
                 </div>
               </div>
             </div>
@@ -1536,7 +1559,8 @@ function ScenarioExplorer({profile,saved,onSave,lang="en"}){
 }
 
 // ── PERSONAL ASSESSMENT ───────────────────────────────────────────────────────
-function PersonalAssessment({profile,lang="en"}){
+function PersonalAssessment({profile,lang="en",darkMode=true}){
+  const C=getC(darkMode);
   const[step,setStep]=useState(0);
   const[answers,setAnswers]=useState({});
   const[current,setCurrent]=useState("");
@@ -1577,15 +1601,15 @@ Tone: direct, non-judgmental, empowering. Never preachy.`;
   };
   const renderText=(text)=>text.split("\n").map((line,i)=>{
     if(line.startsWith("## "))return(<h3 key={i} style={{color:C.accentLight,fontSize:13,fontWeight:700,marginTop:18,marginBottom:8,textTransform:"uppercase",letterSpacing:0.5}}>{line.slice(3)}</h3>);
-    if(line.startsWith("- ")||line.startsWith("• "))return(<div key={i} style={{display:"flex",gap:9,marginBottom:7}}><span style={{color:"#22c55e",flexShrink:0}}>•</span><span style={{color:"#ede9fe",fontSize:14,lineHeight:1.55}}>{line.replace(/^[-•]\s/,"")}</span></div>);
+    if(line.startsWith("- ")||line.startsWith("• "))return(<div key={i} style={{display:"flex",gap:9,marginBottom:7}}><span style={{color:"#22c55e",flexShrink:0}}>•</span><span style={{color:darkMode?"#ede9fe":"#1e1040",fontSize:14,lineHeight:1.55}}>{line.replace(/^[-•]\s/,"")}</span></div>);
     if(!line.trim())return(<div key={i} style={{height:6}}/>);
-    return(<p key={i} style={{color:"#ede9fe",fontSize:14,lineHeight:1.65,margin:"0 0 6px"}}>{line}</p>);
+    return(<p key={i} style={{color:darkMode?"#ede9fe":"#1e1040",fontSize:14,lineHeight:1.65,margin:"0 0 6px"}}>{line}</p>);
   });
   if(step===0)return(
     <div style={{textAlign:"center",padding:"40px 16px",paddingBottom:80}}>
       <div style={{fontSize:48,marginBottom:14}}>🔍</div>
       <h2 style={{color:C.text,fontSize:21,fontWeight:800,marginBottom:12}}>{tx(lang,"assessment")}</h2>
-      <p style={{color:"#ddd6fe",fontSize:14,lineHeight:1.7,marginBottom:28,maxWidth:340,margin:"0 auto 28px"}}>{tx(lang,"assessmentSub")}</p>
+      <p style={{color:darkMode?"#ddd6fe":"#5b21b6",fontSize:14,lineHeight:1.7,marginBottom:28,maxWidth:340,margin:"0 auto 28px"}}>{tx(lang,"assessmentSub")}</p>
       <button onClick={()=>setStep(1)} style={{background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px 36px",color:"white",fontSize:16,fontWeight:700,cursor:"pointer",minHeight:52}}>{tx(lang,"startAssessment")}</button>
     </div>
   );
@@ -1622,10 +1646,10 @@ Tone: direct, non-judgmental, empowering. Never preachy.`;
         <div style={{color:C.muted,fontSize:12,marginTop:4}}>{lang==="es"?getGenderEs(profile.gender):profile.gender} · {lang==="es"?getRaceEs(profile.race):profile.race} · {profile.socioeconomic} · {profile.region}</div>
       </div>
       {loading
-        ?<div style={{textAlign:"center",padding:"48px 20px"}}><div style={{width:38,height:38,border:`3px solid ${C.card}`,borderTop:`3px solid ${C.accent}`,borderRadius:"50%",margin:"0 auto 14px",animation:"spin 1s linear infinite"}}/><div style={{color:"#ddd6fe",fontSize:14}}>{tx(lang,"analyzing")}</div></div>
+        ?<div style={{textAlign:"center",padding:"48px 20px"}}><div style={{width:38,height:38,border:`3px solid ${C.card}`,borderTop:`3px solid ${C.accent}`,borderRadius:"50%",margin:"0 auto 14px",animation:"spin 1s linear infinite"}}/><div style={{color:darkMode?"#ddd6fe":"#5b21b6",fontSize:14}}>{tx(lang,"analyzing")}</div></div>
         :<div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:20}}>
           {renderText(result||"")}
-          <button onClick={()=>{setStep(0);setAnswers({});setCurrent("");setResult(null);}} style={{marginTop:20,width:"100%",background:C.deep,border:`1px solid ${C.border}`,borderRadius:12,padding:"14px",color:"#ddd6fe",fontSize:14,cursor:"pointer",minHeight:50}}>{tx(lang,"newAssessment")}</button>
+          <button onClick={()=>{setStep(0);setAnswers({});setCurrent("");setResult(null);}} style={{marginTop:20,width:"100%",background:C.deep,border:`1px solid ${C.border}`,borderRadius:12,padding:"14px",color:darkMode?"#ddd6fe":"#5b21b6",fontSize:14,cursor:"pointer",minHeight:50}}>{tx(lang,"newAssessment")}</button>
         </div>
       }
     </div>
@@ -1633,7 +1657,8 @@ Tone: direct, non-judgmental, empowering. Never preachy.`;
 }
 
 // ── ONBOARDING ────────────────────────────────────────────────────────────────
-function Onboarding({onComplete,lang,setLang}){
+function Onboarding({onComplete,lang,setLang,darkMode=true,onDarkMode}){
+  const C=getC(darkMode);
   const[step,setStep]=useState(0);
   const[profile,setProfile]=useState({race:"",gender:"",socioeconomic:"",region:"",state:""});
   const fields=[
@@ -1656,14 +1681,15 @@ function Onboarding({onComplete,lang,setLang}){
         <div style={{fontSize:48,marginBottom:10}}>🧭</div>
         <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
         <p style={{color:C.muted,fontSize:13,marginTop:6}}>{tx(lang,"appTagline")}</p>
-        <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:12}}>
-          <button onClick={()=>setLang("en")} style={{background:lang==="en"?C.accent:"#2d1a4a",border:"none",borderRadius:20,padding:"6px 16px",color:"white",fontSize:13,fontWeight:lang==="en"?700:400,cursor:"pointer"}}>🇺🇸 EN</button>
-          <button onClick={()=>setLang("es")} style={{background:lang==="es"?C.accent:"#2d1a4a",border:"none",borderRadius:20,padding:"6px 16px",color:"white",fontSize:13,fontWeight:lang==="es"?700:400,cursor:"pointer"}}>🇪🇸 ES</button>
+        <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:12,flexWrap:"wrap"}}>
+          <button onClick={()=>setLang("en")} style={{background:lang==="en"?C.accent:C.deep,border:"none",borderRadius:20,padding:"6px 16px",color:lang==="en"?"white":C.muted,fontSize:13,fontWeight:lang==="en"?700:400,cursor:"pointer"}}>🇺🇸 EN</button>
+          <button onClick={()=>setLang("es")} style={{background:lang==="es"?C.accent:C.deep,border:"none",borderRadius:20,padding:"6px 16px",color:lang==="es"?"white":C.muted,fontSize:13,fontWeight:lang==="es"?700:400,cursor:"pointer"}}>🇪🇸 ES</button>
+          {onDarkMode&&<button onClick={()=>onDarkMode(!darkMode)} style={{background:C.deep,border:`1px solid ${C.border}`,borderRadius:20,width:36,height:32,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:14}}>{darkMode?"☀️":"🌙"}</button>}
         </div>
       </div>
       {step===0
         ?<div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:18,padding:26,maxWidth:400,width:"100%",textAlign:"center"}}>
-          <p style={{color:"#ede9fe",fontSize:15,lineHeight:1.75,marginBottom:22}}>{tx(lang,"onboardingIntro")}</p>
+          <p style={{color:darkMode?"#ede9fe":"#1e1040",fontSize:15,lineHeight:1.75,marginBottom:22}}>{tx(lang,"onboardingIntro")}</p>
           <div style={{color:C.muted,fontSize:13,marginBottom:22}}>{tx(lang,"questions5")}</div>
           <button onClick={()=>setStep(1)} style={{background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px",width:"100%",color:"white",fontSize:16,fontWeight:700,cursor:"pointer",minHeight:52,boxShadow:"0 4px 20px rgba(124,58,237,0.4)"}}>{tx(lang,"getStarted")}</button>
           <div style={{marginTop:14,fontSize:12,color:C.muted}}>{tx(lang,"onboardingPrivacy")}</div>
@@ -1698,10 +1724,19 @@ export default function LifeLens(){
   const[saved,setSaved]=useState([]);
   const[lang,setLang]=useState("en");
   const[explorerKey,setExplorerKey]=useState(0);
+  const[pendingScenario,setPendingScenario]=useState(null);
+  const[darkMode,setDarkMode]=useState(()=>window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches!==false);
+
+  const goToScenario=(sc)=>{
+    setPendingScenario(sc);
+    setTab("explorer");
+    setExplorerKey(k=>k+1);
+  };
 
   useEffect(()=>{
     try{const d=localStorage.getItem("lifelens_saved_v3");if(d)setSaved(JSON.parse(d));}catch{}
     try{const l=localStorage.getItem("lifelens_lang");if(l)setLang(l);}catch{}
+    try{const dk=localStorage.getItem("lifelens_dark");if(dk!==null)setDarkMode(dk==="true");}catch{}
   },[]);
 
   const handleSave=(id)=>{
@@ -1715,13 +1750,20 @@ export default function LifeLens(){
     try{localStorage.setItem("lifelens_lang",l);}catch{}
   };
 
+  const handleDarkMode=(d)=>{
+    setDarkMode(d);
+    try{localStorage.setItem("lifelens_dark",String(d));}catch{}
+  };
+
+  const CV=getC(darkMode);
+
   const handleOnboardingComplete=(p)=>{
     setProfile(p);
     setShowBridge(true);
   };
 
-  if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang}/>);
-  if(showBridge)return(<WelcomeBridge onReady={()=>setShowBridge(false)} lang={lang}/>);
+  if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang} darkMode={darkMode} onDarkMode={handleDarkMode}/>);
+  if(showBridge)return(<WelcomeBridge onReady={()=>setShowBridge(false)} lang={lang} darkMode={darkMode}/>);
 
   const TABS=[
     {id:"explorer",icon:"🗺️"},
@@ -1732,46 +1774,48 @@ export default function LifeLens(){
   ];
 
   return(
-    <div style={{background:C.bg,minHeight:"100%",color:C.text,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
-      <div style={{background:C.card,borderBottom:`1px solid ${C.border}`,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        {/* Logo — tapping goes home to Scenarios */}
+    <div style={{background:CV.bg,minHeight:"100%",color:CV.text,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
+      <div style={{background:CV.card,borderBottom:`1px solid ${CV.border}`,padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         <div onClick={()=>{setTab("explorer");setExplorerKey(k=>k+1);}} style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer"}}>
           <span style={{fontSize:20}}>🧭</span>
           <div>
-            <div style={{fontWeight:900,fontSize:18,color:C.accentLight,lineHeight:1.1}}>LifeLens</div>
-            <div style={{fontSize:10,color:C.accent,fontWeight:600,letterSpacing:"0.3px"}}>{lang==="es"?"toca para ir al inicio":"tap to go home"}</div>
+            <div style={{fontWeight:900,fontSize:18,color:CV.accentLight,lineHeight:1.1}}>LifeLens</div>
+            <div style={{fontSize:10,color:CV.accent,fontWeight:600,letterSpacing:"0.3px"}}>{lang==="es"?"toca para ir al inicio":"tap to go home"}</div>
           </div>
         </div>
-        <div style={{display:"flex",gap:8,alignItems:"center"}}>
-          <button onClick={()=>handleLang(lang==="en"?"es":"en")} style={{background:"#2d1a4a",border:`1px solid ${C.border}`,borderRadius:20,padding:"4px 12px",color:C.accentLight,fontSize:12,fontWeight:700,cursor:"pointer"}}>
+        <div style={{display:"flex",gap:5,alignItems:"center"}}>
+          <button onClick={()=>handleDarkMode(!darkMode)} style={{background:darkMode?"#2d1a4a":"#ede9fe",border:`1px solid ${CV.border}`,borderRadius:20,width:32,height:28,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",flexShrink:0,fontSize:14}}>
+            {darkMode?"☀️":"🌙"}
+          </button>
+          <button onClick={()=>handleLang(lang==="en"?"es":"en")} style={{background:darkMode?"#2d1a4a":"#ede9fe",border:`1px solid ${CV.border}`,borderRadius:20,padding:"4px 10px",color:CV.accentLight,fontSize:11,fontWeight:700,cursor:"pointer",flexShrink:0}}>
             {lang==="en"?"🇪🇸 ES":"🇺🇸 EN"}
           </button>
-          <button onClick={()=>{setProfile(null);setShowBridge(false);}} style={{background:"none",border:`1px solid ${C.border}`,borderRadius:8,padding:"4px 10px",color:C.muted,fontSize:11,cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>
-            ✏️ {tx(lang,"editProfile")}
+          <button onClick={()=>{setProfile(null);setShowBridge(false);}} style={{background:"none",border:`1px solid ${CV.border}`,borderRadius:8,padding:"4px 8px",color:CV.muted,fontSize:11,cursor:"pointer",flexShrink:0}}>
+            ✏️
           </button>
         </div>
       </div>
-      <div style={{background:"rgba(124,58,237,0.1)",borderBottom:`1px solid ${C.border}`,padding:"7px 16px",textAlign:"center"}}>
-        <span style={{fontSize:12,color:C.muted,letterSpacing:"0.3px"}}>
+      <div style={{background:"rgba(124,58,237,0.1)",borderBottom:`1px solid ${CV.border}`,padding:"7px 16px",textAlign:"center"}}>
+        <span style={{fontSize:12,color:CV.muted,letterSpacing:"0.3px"}}>
           {lang==="es"?getRaceEs(profile.race):profile.race} · {lang==="es"?getGenderEs(profile.gender):profile.gender} · {lang==="es"?getSocioEs(profile.socioeconomic):profile.socioeconomic} · {lang==="es"?getRegionEs(profile.region):profile.region}{profile.state?` · ${profile.state}`:""}
         </span>
       </div>
       <div style={{maxWidth:600,margin:"0 auto",padding:"16px 14px"}}>
-        {tab==="explorer"&&<ScenarioExplorer key={explorerKey} profile={profile} saved={saved} onSave={handleSave} lang={lang}/>}
-        {tab==="assessment"&&<PersonalAssessment profile={profile} lang={lang}/>}
-        {tab==="journal"&&<JournalTab saved={saved} onUnsave={handleSave} lang={lang} profile={profile}/>}
-        {tab==="lifemap"&&<LifeMapTab saved={saved} lang={lang}/>}
-        {tab==="story"&&<WriteYourStory profile={profile} lang={lang}/>}
+        {tab==="explorer"&&<ScenarioExplorer key={explorerKey} profile={profile} saved={saved} onSave={handleSave} lang={lang} darkMode={darkMode} initialScenario={pendingScenario} onScenarioLoaded={()=>setPendingScenario(null)}/>}
+        {tab==="assessment"&&<PersonalAssessment profile={profile} lang={lang} darkMode={darkMode}/>}
+        {tab==="journal"&&<JournalTab saved={saved} onUnsave={handleSave} lang={lang} profile={profile} darkMode={darkMode}/>}
+        {tab==="lifemap"&&<LifeMapTab saved={saved} lang={lang} onGoToScenario={goToScenario} darkMode={darkMode}/>}
+        {tab==="story"&&<WriteYourStory profile={profile} lang={lang} darkMode={darkMode}/>}
       </div>
-      <div style={{position:"fixed",bottom:0,left:0,right:0,background:C.card,borderTop:`1px solid ${C.border}`,display:"flex",zIndex:100}}>
+      <div style={{position:"fixed",bottom:0,left:0,right:0,background:CV.card,borderTop:`1px solid ${CV.border}`,display:"flex",zIndex:100}}>
         {TABS.map(t=>(
-          <button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,background:"none",border:"none",borderTop:tab===t.id?`3px solid ${C.accent}`:"3px solid transparent",padding:"8px 2px 6px",color:tab===t.id?C.accentLight:C.muted,fontSize:10,fontWeight:tab===t.id?700:400,cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,minHeight:54}}>
+          <button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,background:"none",border:"none",borderTop:tab===t.id?`3px solid ${CV.accent}`:"3px solid transparent",padding:"8px 2px 6px",color:tab===t.id?CV.accentLight:CV.muted,fontSize:10,fontWeight:tab===t.id?700:400,cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2,minHeight:54}}>
             <span style={{fontSize:17}}>{t.icon}</span>
             {tx(lang,`tabs.${t.id}`)}
           </button>
         ))}
       </div>
-      <style>{`html,body,#root{margin:0;padding:0;height:100%;}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}textarea:focus,input:focus{border-color:${C.accent}!important;outline:none;}@keyframes spin{to{transform:rotate(360deg)}}::-webkit-scrollbar{display:none;}`}</style>
+      <style>{`html,body,#root{margin:0;padding:0;height:100%;background:${CV.bg};}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}textarea:focus,input:focus{border-color:${CV.accent}!important;outline:none;}@keyframes spin{to{transform:rotate(360deg)}}::-webkit-scrollbar{display:none;}`}</style>
     </div>
   );
 }
