@@ -1319,7 +1319,7 @@ function JournalTab({saved,onUnsave,lang="en",profile=null,darkMode=true,onGoToS
 }
 
 // ── LIFE MAP TAB ──────────────────────────────────────────────────────────────
-function LifeMapTab({saved,lang="en",onGoToScenario,darkMode=true,onSaveProgress}){
+function LifeMapTab({saved,lang="en",onGoToScenario,darkMode=true,onGenerateCode,restoreCode=null,profile=null}){
   const C=getC(darkMode);
   const savedSet=new Set(saved);
   const isEs=lang==="es";
@@ -1395,10 +1395,20 @@ function LifeMapTab({saved,lang="en",onGoToScenario,darkMode=true,onSaveProgress
         {saved.length===0
           ?<div style={{fontSize:12,color:C.muted,lineHeight:1.6}}>{isEs?"Guarda al menos una decisión en la pestaña Escenarios para generar tu código de restauración.":"Save at least one decision from the Scenarios tab to generate your restore code."}</div>
           :<>
-            <div style={{fontSize:12,color:C.muted,lineHeight:1.6,marginBottom:14}}>{isEs?"Genera un código de restauración para volver y continuar justo donde lo dejaste. Solo haz una captura de pantalla o cópialo.":"Generate a restore code to come back and pick up right where you left off. Just screenshot it or copy it."}</div>
-            <button onClick={()=>onSaveProgress&&onSaveProgress()} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:12,padding:"14px",color:"white",fontSize:14,fontWeight:700,cursor:"pointer",minHeight:48}}>
-              💾 {isEs?"Obtener Mi Código de Restauración":"Get My Restore Code"}
+            <div style={{fontSize:12,color:C.muted,lineHeight:1.6,marginBottom:14}}>{isEs?"Genera un código que guarda tu perfil y decisiones. Cópialo o toma una captura de pantalla para restaurar en tu próxima visita.":"Generate a code that saves your profile and decisions. Copy it or screenshot it to restore on your next visit."}</div>
+            <button onClick={()=>onGenerateCode&&onGenerateCode()} style={{width:"100%",background:C.accent,border:"2px solid #a855f7",borderRadius:12,padding:"14px",color:"white",fontSize:14,fontWeight:800,cursor:"pointer",minHeight:48,marginBottom:restoreCode?12:0}}>
+              💾 {isEs?"Generar Mi Código de Restauración":"Generate My Restore Code"}
             </button>
+            {restoreCode&&(
+              <div style={{background:darkMode?"#0d0520":C.deep,border:`2px solid ${C.accent}`,borderRadius:12,padding:16,textAlign:"center"}}>
+                <div style={{fontSize:10,color:C.accent,fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>{isEs?"Tu Código de Restauración":"Your Restore Code"}</div>
+                <div style={{fontFamily:"monospace",fontSize:15,fontWeight:900,color:darkMode?"#f0abfc":C.accentLight,letterSpacing:2,marginBottom:8,wordBreak:"break-all",lineHeight:1.6}}>{restoreCode}</div>
+                <div style={{fontSize:11,color:C.muted,marginBottom:12}}>📸 {isEs?"Toma una captura de pantalla O copia el código":"Screenshot this OR copy the code below"}</div>
+                <button onClick={()=>{try{navigator.clipboard.writeText(restoreCode);}catch(e){}}} style={{width:"100%",background:C.accent,border:"2px solid #a855f7",borderRadius:10,padding:"12px",color:"white",fontSize:13,fontWeight:800,cursor:"pointer"}}>
+                  📋 {isEs?"Copiar Código":"Copy Code"}
+                </button>
+              </div>
+            )}
           </>
         }
       </div>
@@ -1420,8 +1430,8 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
 
   if(selected){
     const sc=selected;
-    const isEs=lang==="es";
-    const intro=isEs?sc.introEs:sc.introEn;
+    const scIsEs=lang==="es";
+    const intro=scIsEs?sc.introEs:sc.introEn;
     const{label,color,sentence}=getRiskLevel(sc.riskScore,lang,darkMode);
     const isSaved=saved.includes(sc.id);
 
@@ -1432,11 +1442,11 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:16,padding:18,marginBottom:12,textAlign:"center"}}>
             <div style={{fontSize:34,marginBottom:8}}>{sc.icon}</div>
             <div style={{display:"inline-block",background:"rgba(124,58,237,0.3)",border:`1px solid ${C.accent}`,borderRadius:20,padding:"3px 12px",fontSize:11,color:C.muted,fontWeight:700,marginBottom:10}}>{intro.badge}</div>
-            <div style={{fontSize:16,fontWeight:800,color:darkMode?"#e9d5ff":"#6d28d9",marginBottom:6,lineHeight:1.3}}>{isEs&&sc.titleEs?sc.titleEs:sc.title}</div>
+            <div style={{fontSize:16,fontWeight:800,color:darkMode?"#e9d5ff":"#6d28d9",marginBottom:6,lineHeight:1.3}}>{scIsEs&&sc.titleEs?sc.titleEs:sc.title}</div>
             <div style={{fontSize:12,color:C.muted,lineHeight:1.5}}>{intro.hook}</div>
           </div>
           <div style={{background:darkMode?"#0d1a3a":C.card,border:darkMode?"1px solid #1e3a5f":`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:12}}>
-            <div style={{fontSize:10,color:darkMode?"#60a5fa":C.accentLight,fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>{isEs?"Antes de ver los datos":"Before you see the data"}</div>
+            <div style={{fontSize:10,color:darkMode?"#60a5fa":C.accentLight,fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>{scIsEs?"Antes de ver los datos":"Before you see the data"}</div>
             <div style={{fontSize:13,color:darkMode?"#e2e8f0":C.text,lineHeight:1.7,fontStyle:"italic"}}>"{intro.quote}"</div>
             <div style={{fontSize:11,color:C.muted,marginTop:8,textAlign:"right"}}>— Ms. Chavez, LifeLens</div>
           </div>
@@ -1454,7 +1464,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
           <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:12,padding:14,marginBottom:16}}>
             <div style={{fontSize:12,color:C.muted,fontStyle:"italic",lineHeight:1.6}}>"{intro.question}"</div>
           </div>
-          <button onClick={()=>setShowIntro(false)} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px",color:"white",fontSize:15,fontWeight:700,cursor:"pointer",minHeight:52}}>{isEs?"Ver los Datos →":"Show Me the Data →"}</button>
+          <button onClick={()=>setShowIntro(false)} style={{width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px",color:"white",fontSize:15,fontWeight:700,cursor:"pointer",minHeight:52}}>{scIsEs?"Ver los Datos →":"Show Me the Data →"}</button>
         </div>
       );
     }
@@ -1542,7 +1552,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
       <div style={{display:"flex",flexDirection:"column",gap:10}}>
         {SCENARIOS.filter(s=>s.category===cat).map((sc,idx,arr)=>{
           const{label,color}=getRiskLevel(sc.riskScore,lang,darkMode);
-          const isSaved=saved.includes(sc.id);
+          const scIsSaved=saved.includes(sc.id);
           const isEs=lang==="es";
           const prevSc=arr[idx-1];
           const showBasicsLabel=cat==="career"&&sc.hasIntro&&(!prevSc||!prevSc.hasIntro);
@@ -1551,7 +1561,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
             <div key={sc.id}>
               {showBasicsLabel&&<div style={{fontSize:11,fontWeight:800,textTransform:"uppercase",letterSpacing:1,color:C.muted,marginBottom:6,paddingLeft:2}}>📚 {isEs?"Conoce lo Básico Primero":"Know the Basics First"}</div>}
               {showPathLabel&&<><div style={{height:1,background:C.border,margin:"4px 0 12px"}}/><div style={{fontSize:11,fontWeight:800,textTransform:"uppercase",letterSpacing:1,color:C.muted,marginBottom:6,paddingLeft:2}}>🛤️ {isEs?"Elige Tu Camino":"Choose Your Path"}</div></>}
-              <div onClick={()=>{setSelected(sc);setShowIntro(!!sc.hasIntro);}} style={{background:C.card,border:`1px solid ${isSaved?color:C.border}`,borderRadius:16,padding:18,cursor:"pointer"}}>
+              <div onClick={()=>{setSelected(sc);setShowIntro(!!sc.hasIntro);}} style={{background:C.card,border:`1px solid ${scIsSaved?color:C.border}`,borderRadius:16,padding:18,cursor:"pointer"}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
                   <div style={{display:"flex",gap:12,alignItems:"flex-start"}}>
                     <span style={{fontSize:28,flexShrink:0}}>{sc.icon}</span>
@@ -1563,7 +1573,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
                   </div>
                   <div style={{textAlign:"right",flexShrink:0,marginLeft:10}}>
                     <div style={{fontSize:15,fontWeight:900,color}}>{label}</div>
-                    {isSaved&&<div style={{fontSize:10,color:"#22c55e",marginTop:2}}>✓ {isEs?"Guardado":"Saved"}</div>}
+                    {scIsSaved&&<div style={{fontSize:10,color:"#22c55e",marginTop:2}}>✓ {isEs?"Guardado":"Saved"}</div>}
                   </div>
                 </div>
                 <div style={{marginTop:12,height:4,background:C.deep,borderRadius:2}}>
@@ -1681,10 +1691,13 @@ Tone: direct, non-judgmental, empowering. Never preachy.`;
 }
 
 // ── ONBOARDING ────────────────────────────────────────────────────────────────
-function Onboarding({onComplete,lang,setLang,darkMode=true,onDarkMode}){
+function Onboarding({onComplete,lang,setLang,darkMode=true,onDarkMode,onRestoreCode}){
   const C=getC(darkMode);
   const[step,setStep]=useState(0);
   const[profile,setProfile]=useState({race:"",gender:"",socioeconomic:"",region:"",state:""});
+  const[showRestore,setShowRestore]=useState(false);
+  const[restoreInput,setRestoreInput]=useState("");
+  const[restoreErr,setRestoreErr]=useState(false);
   const fields=[
     {key:"race",label:"How do you identify racially or ethnically?",labelEs:"¿Cómo te identificas racial o étnicamente?",icon:"🌍",options:RACES,optionsEs:RACES_ES,scrollable:false},
     {key:"gender",label:"How do you identify?",labelEs:"¿Cómo te identificas?",icon:"🧬",options:GENDERS,optionsEs:GENDERS_ES,scrollable:false},
@@ -1715,8 +1728,24 @@ function Onboarding({onComplete,lang,setLang,darkMode=true,onDarkMode}){
         ?<div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:18,padding:26,maxWidth:400,width:"100%",textAlign:"center"}}>
           <p style={{color:darkMode?"#ede9fe":"#1e1040",fontSize:15,lineHeight:1.75,marginBottom:22}}>{tx(lang,"onboardingIntro")}</p>
           <div style={{color:C.muted,fontSize:13,marginBottom:22}}>{tx(lang,"questions5")}</div>
-          <button onClick={()=>setStep(1)} style={{background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:14,padding:"16px",width:"100%",color:"white",fontSize:16,fontWeight:700,cursor:"pointer",minHeight:52,boxShadow:"0 4px 20px rgba(124,58,237,0.4)"}}>{tx(lang,"getStarted")}</button>
+          <button onClick={()=>setStep(1)} style={{background:C.accent,border:"2px solid #a855f7",borderRadius:14,padding:"16px",width:"100%",color:"white",fontSize:16,fontWeight:800,cursor:"pointer",minHeight:52}}>{tx(lang,"getStarted")}</button>
           <div style={{marginTop:14,fontSize:12,color:C.muted}}>{tx(lang,"onboardingPrivacy")}</div>
+          {!showRestore
+            ?<button onClick={()=>setShowRestore(true)} style={{background:"none",border:"none",color:C.accent,fontSize:12,textDecoration:"underline",cursor:"pointer",marginTop:10,padding:"4px 0",width:"100%"}}>
+              {lang==="es"?"¿Tienes un código de restauración? Continúa donde lo dejaste":"Have a restore code? Continue where you left off"}
+            </button>
+            :<div style={{marginTop:12,background:C.deep,border:`1px solid ${C.accent}`,borderRadius:12,padding:14}}>
+              <div style={{fontSize:12,fontWeight:700,color:C.accentLight,marginBottom:8}}>💾 {lang==="es"?"Ingresa tu código":"Enter your restore code"}</div>
+              <input value={restoreInput} onChange={e=>setRestoreInput(e.target.value)} placeholder="e.g. BLK-MAN-LI-URB-NEW-YORK|COL-MIL" style={{width:"100%",background:darkMode?"#0d0520":C.card,border:`1px solid ${C.accent}`,borderRadius:8,padding:"10px 12px",color:darkMode?"#f0abfc":C.accentLight,fontSize:12,fontFamily:"monospace",boxSizing:"border-box",outline:"none",marginBottom:10}}/>
+              {restoreErr&&<div style={{color:"#ef4444",fontSize:12,marginBottom:8}}>{lang==="es"?"Código no válido. Verifícalo e intenta de nuevo.":"Invalid code. Please check it and try again."}</div>}
+              <button onClick={()=>{const d=decodeRestoreCode(restoreInput);if(d){onRestoreCode&&onRestoreCode(d);}else{setRestoreErr(true);setTimeout(()=>setRestoreErr(false),3000);}}} style={{width:"100%",background:C.accent,border:"2px solid #a855f7",borderRadius:10,padding:"12px",color:"white",fontSize:14,fontWeight:800,cursor:"pointer",marginBottom:8}}>
+                {lang==="es"?"Restaurar Mi Progreso →":"Restore My Progress →"}
+              </button>
+              <button onClick={()=>{setShowRestore(false);setRestoreInput("");}} style={{width:"100%",background:"none",border:`1px solid ${C.border}`,borderRadius:10,padding:"10px",color:C.muted,fontSize:13,cursor:"pointer"}}>
+                {lang==="es"?"Comenzar de Nuevo":"Start Fresh Instead"}
+              </button>
+            </div>
+          }
         </div>
         :<>
           <div style={{display:"flex",gap:8,marginBottom:22}}>
@@ -1740,6 +1769,48 @@ function Onboarding({onComplete,lang,setLang,darkMode=true,onDarkMode}){
   );
 }
 
+
+// ── RESTORE CODE HELPERS ─────────────────────────────────────────────────────
+const RACE_CODES={"White":"WHT","Black":"BLK","Hispanic":"HIS","Asian":"ASN","Indigenous":"IND","Multiracial / Other":"MUL"};
+const RACE_DECODE=Object.fromEntries(Object.entries(RACE_CODES).map(([k,v])=>[v,k]));
+const GENDER_CODES={"Man":"MAN","Woman":"WOM","Non-binary / Gender non-conforming":"NBX"};
+const GENDER_DECODE=Object.fromEntries(Object.entries(GENDER_CODES).map(([k,v])=>[v,k]));
+const SOCIO_CODES={"Low income":"LI","Working class":"WC","Middle class":"MC","Upper middle class":"UM"};
+const SOCIO_DECODE=Object.fromEntries(Object.entries(SOCIO_CODES).map(([k,v])=>[v,k]));
+const REGION_CODES={"Urban (major city)":"URB","Suburban":"SUB","Small city / town":"SML","Rural":"RUR"};
+const REGION_DECODE=Object.fromEntries(Object.entries(REGION_CODES).map(([k,v])=>[v,k]));
+
+function generateRestoreCode(profile,saved){
+  const r=RACE_CODES[profile.race]||"UNK";
+  const g=GENDER_CODES[profile.gender]||"UNK";
+  const s=SOCIO_CODES[profile.socioeconomic]||"UNK";
+  const reg=REGION_CODES[profile.region]||"UNK";
+  const st=(profile.state||"XX").split(" ").join("-").substring(0,8).toUpperCase();
+  const scenPart=saved.length>0?saved.map(id=>id.substring(0,3).toUpperCase()).join("-"):"NONE";
+  return r+"-"+g+"-"+s+"-"+reg+"-"+st+"|"+scenPart;
+}
+
+function decodeRestoreCode(inputCode){
+  try{
+    const parts2=inputCode.trim().toUpperCase().split("|");
+    const profilePart=parts2[0];
+    const scenarioPart=parts2[1]||"NONE";
+    const parts=profilePart.split("-");
+    if(parts.length<4)return null;
+    const race=RACE_DECODE[parts[0]];
+    const gender=GENDER_DECODE[parts[1]];
+    const socioeconomic=SOCIO_DECODE[parts[2]];
+    const region=REGION_DECODE[parts[3]];
+    if(!race||!gender||!socioeconomic||!region)return null;
+    const stateRaw=parts.slice(4).join(" ");
+    const state=ALL_STATES.find(st2=>st2.toUpperCase().startsWith(stateRaw))||stateRaw||"";
+    const savedIds=scenarioPart!=="NONE"
+      ?SCENARIOS.filter(sc=>scenarioPart.split("-").some(seg=>sc.id.toUpperCase().startsWith(seg))).map(sc=>sc.id)
+      :[];
+    return{profile:{race,gender,socioeconomic,region,state},saved:savedIds};
+  }catch(e){return null;}
+}
+
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 export default function LifeLens(){
   const[profile,setProfile]=useState(null);
@@ -1750,6 +1821,14 @@ export default function LifeLens(){
   const[explorerKey,setExplorerKey]=useState(0);
   const[pendingScenario,setPendingScenario]=useState(null);
   const[darkMode,setDarkMode]=useState(()=>window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches!==false);
+  const[restoreCode,setRestoreCode]=useState(null);
+
+  const handleGenerateCode=()=>{
+    if(!profile)return;
+    const code=generateRestoreCode(profile,saved);
+    setRestoreCode(code);
+    try{navigator.clipboard.writeText(code);}catch(e){}
+  };
 
   const goToScenario=(sc)=>{
     setPendingScenario(sc);
@@ -1764,9 +1843,9 @@ export default function LifeLens(){
   },[]);
 
   const handleSave=(id)=>{
-    const updated=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
-    setSaved(updated);
-    try{localStorage.setItem("lifelens_saved_v3",JSON.stringify(updated));}catch{}
+    const savedUpd=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];
+    setSaved(savedUpd);
+    try{localStorage.setItem("lifelens_saved_v3",JSON.stringify(savedUpd));}catch{}
   };
 
   const handleLang=(l)=>{
@@ -1786,7 +1865,7 @@ export default function LifeLens(){
     setShowBridge(true);
   };
 
-  if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang} darkMode={darkMode} onDarkMode={handleDarkMode}/>);
+  if(!profile)return(<Onboarding onComplete={handleOnboardingComplete} lang={lang} setLang={handleLang} darkMode={darkMode} onDarkMode={handleDarkMode} onRestoreCode={(decoded)=>{setSaved(decoded.saved);handleOnboardingComplete(decoded.profile);}}/>);
   if(showBridge)return(<WelcomeBridge onReady={()=>setShowBridge(false)} lang={lang} darkMode={darkMode}/>);
 
   const TABS=[
@@ -1828,7 +1907,7 @@ export default function LifeLens(){
         {tab==="explorer"&&<ScenarioExplorer key={explorerKey} profile={profile} saved={saved} onSave={handleSave} lang={lang} darkMode={darkMode} initialScenario={pendingScenario} onScenarioLoaded={()=>setPendingScenario(null)}/>}
         {tab==="assessment"&&<PersonalAssessment profile={profile} lang={lang} darkMode={darkMode}/>}
         {tab==="journal"&&<JournalTab saved={saved} onUnsave={handleSave} lang={lang} profile={profile} darkMode={darkMode} onGoToStory={()=>setTab("story")}/>}
-        {tab==="lifemap"&&<LifeMapTab saved={saved} lang={lang} onGoToScenario={goToScenario} darkMode={darkMode} onSaveProgress={()=>alert("Restore code feature coming soon!")}/>}
+        {tab==="lifemap"&&<LifeMapTab saved={saved} lang={lang} onGoToScenario={goToScenario} darkMode={darkMode} onGenerateCode={handleGenerateCode} restoreCode={restoreCode} profile={profile}/>}
         {tab==="story"&&<WriteYourStory profile={profile} lang={lang} darkMode={darkMode}/>}
       </div>
       <div style={{position:"fixed",bottom:0,left:0,right:0,background:CV.card,borderTop:`1px solid ${CV.border}`,display:"flex",zIndex:100}}>
