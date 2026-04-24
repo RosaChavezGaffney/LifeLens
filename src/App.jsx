@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { inject } from "@vercel/analytics";
+inject();
 
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────────
 const TX = {
