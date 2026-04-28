@@ -943,7 +943,7 @@ function WelcomeBridge({onReady,lang="en",darkMode=true}){
         <div style={{fontSize:11,color:C.accentBright,fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:12}}>{isEs?"Una nota de Ms. Chavez":"A note from Ms. Chavez"}</div>
         <p style={{fontSize:14,color:darkMode?"#ede9fe":"#1e1040",lineHeight:1.8,margin:"0 0 12px",fontStyle:"italic"}}>{isEs?"Construí LifeLens porque pasé 25 años viendo a jóvenes brillantes tomar decisiones de vida sin tener la información completa. No por falta de inteligencia — sino porque nadie se sentó con ellos y les mostró el panorama real antes de que fuera demasiado tarde.":"I built LifeLens because I spent 25 years watching brilliant teenagers make life-changing decisions in the dark. Not for lack of intelligence — but because nobody sat them down and showed them the full picture before it was too late."}</p>
         <p style={{fontSize:14,color:C.accentLight,lineHeight:1.8,margin:0,fontWeight:600}}>{isEs?"Esto es eso. La imagen completa. Para ti.":"This is that. The full picture. For you."}</p>
-        <div style={{fontSize:12,color:C.muted,marginTop:14,textAlign:"right"}}>— Ms. Chavez, LifeLens</div>
+        <div style={{fontSize:12,color:C.muted,marginTop:14,textAlign:"right"}}>— Ms. Chavez, LifeLens for Teens</div>
       </div>
       <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:16}}>
         <div style={{fontSize:13,fontWeight:800,color:C.accentLight,marginBottom:12}}>📊 {isEs?"¿De dónde vienen estos datos?":"Where does this data come from?"}</div>
@@ -1216,7 +1216,7 @@ Their story: ${story}`;
           <div style={{background:darkMode?"linear-gradient(135deg,#1a0a3d,#1e1040)":C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:18,marginBottom:14}}>
             <div style={{fontSize:12,color:C.accentBright,fontWeight:700,marginBottom:8,textTransform:"uppercase",letterSpacing:0.8}}>{tx(lang,"messageFrom")}</div>
             <div style={{fontSize:15,color:C.text,lineHeight:1.7,fontStyle:"italic"}}>"{result.message}"</div>
-            <div style={{fontSize:12,color:C.muted,marginTop:10}}>— Ms. Chavez, LifeLens</div>
+            <div style={{fontSize:12,color:C.muted,marginTop:10}}>— Ms. Chavez, LifeLens for Teens</div>
           </div>
         )}
         <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:14}}>
@@ -1310,7 +1310,7 @@ function JournalTab({saved,onUnsave,lang="en",profile=null,darkMode=true,onGoToS
         <div style={{background:darkMode?"linear-gradient(135deg,#1a0a3d,#1e1040)":C.card,border:`1px solid ${C.accent}`,borderRadius:14,padding:18,marginTop:16}}>
           <div style={{fontSize:11,fontWeight:700,color:C.accentBright,textTransform:"uppercase",letterSpacing:1,marginBottom:10}}>✍️ {isEs?"Ms. Chavez dice":"Ms. Chavez says"}</div>
           <div style={{fontSize:13,color:darkMode?"#e9d5ff":"#1e1040",lineHeight:1.7,fontStyle:"italic"}}>"{isEs?"Estas son las decisiones que estás siguiendo. Ahora la pregunta real — ¿cuál es TU historia? Toca abajo para escribirla.":"These are the decisions you're tracking. Now here's the real question — what's YOUR story? Tap below to write it."}"</div>
-          <div style={{fontSize:11,color:C.muted,marginTop:6,textAlign:"right"}}>— Ms. Chavez, LifeLens</div>
+          <div style={{fontSize:11,color:C.muted,marginTop:6,textAlign:"right"}}>— Ms. Chavez, LifeLens for Teens</div>
           <button onClick={()=>onGoToStory&&onGoToStory()} style={{marginTop:14,width:"100%",background:`linear-gradient(135deg,${C.accent},#9333ea)`,border:"none",borderRadius:12,padding:"13px",color:"white",fontSize:13,fontWeight:700,cursor:"pointer",minHeight:46}}>
             ✍️ {isEs?"Escribir Mi Historia →":"Write My Story →"}
           </button>
@@ -1450,7 +1450,7 @@ function ScenarioExplorer({profile,saved,onSave,lang="en",darkMode=true,initialS
           <div style={{background:darkMode?"#0d1a3a":C.card,border:darkMode?"1px solid #1e3a5f":`1px solid ${C.border}`,borderRadius:14,padding:16,marginBottom:12}}>
             <div style={{fontSize:10,color:darkMode?"#60a5fa":C.accentLight,fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>{scIsEs?"Antes de ver los datos":"Before you see the data"}</div>
             <div style={{fontSize:13,color:darkMode?"#e2e8f0":C.text,lineHeight:1.7,fontStyle:"italic"}}>"{intro.quote}"</div>
-            <div style={{fontSize:11,color:C.muted,marginTop:8,textAlign:"right"}}>— Ms. Chavez, LifeLens</div>
+            <div style={{fontSize:11,color:C.muted,marginTop:8,textAlign:"right"}}>— Ms. Chavez, LifeLens for Teens</div>
           </div>
           {intro.exampleTag&&<div style={{display:"inline-block",background:"rgba(251,191,36,0.1)",border:"1px solid #854f0b",borderRadius:8,padding:"3px 10px",fontSize:11,color:"#fbbf24",fontWeight:700,marginBottom:8}}>{intro.exampleTag}</div>}
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}}>
@@ -1718,7 +1718,7 @@ function Onboarding({onComplete,lang,setLang,darkMode=true,onDarkMode,onRestoreC
     <div style={{background:C.bg,minHeight:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
       <div style={{textAlign:"center",marginBottom:28}}>
         <div style={{fontSize:48,marginBottom:10}}>🧭</div>
-        <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens</h1>
+        <h1 style={{color:C.text,fontSize:26,fontWeight:900,margin:0}}>LifeLens for Teens</h1>
         <p style={{color:C.muted,fontSize:13,marginTop:6}}>{tx(lang,"appTagline")}</p>
         <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:12,flexWrap:"wrap"}}>
           <button onClick={()=>setLang("en")} style={{background:lang==="en"?C.accent:C.deep,border:"none",borderRadius:20,padding:"6px 16px",color:lang==="en"?"white":C.muted,fontSize:13,fontWeight:lang==="en"?700:400,cursor:"pointer"}}>🇺🇸 EN</button>
@@ -1884,7 +1884,7 @@ export default function LifeLens(){
         <div onClick={()=>{setTab("explorer");setExplorerKey(k=>k+1);}} style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer"}}>
           <span style={{fontSize:20}}>🧭</span>
           <div>
-            <div style={{fontWeight:900,fontSize:18,color:CV.accentLight,lineHeight:1.1}}>LifeLens</div>
+            <div style={{fontWeight:900,fontSize:18,color:CV.accentLight,lineHeight:1.1}}>LifeLens for Teens</div>
             <div style={{fontSize:10,color:CV.accent,fontWeight:600,letterSpacing:"0.3px"}}>{lang==="es"?"toca para ir al inicio":"tap to go home"}</div>
           </div>
         </div>
